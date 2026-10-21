@@ -700,18 +700,6 @@
    "dur": 83,
    "poster": "media/posters/03-video-tirinha-9-16.webp",
    "hidden": false
-  },
-  {
-   "id": "escola-samsara-novo-espac-o-01",
-   "guid": "dcf7ab19-882c-406f-95c5-3ae3441939a6",
-   "w": 1080,
-   "h": 1920,
-   "dur": 39,
-   "poster": null,
-   "hidden": false,
-   "pending": true,
-   "cat": "social",
-   "ia": false
   }
  ]
 }
