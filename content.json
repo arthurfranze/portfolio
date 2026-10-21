@@ -108,6 +108,17 @@
  ],
  "videos": [
   {
+   "id": "instalacao-viral",
+   "guid": "60fc0619-8dfd-4f0f-a5e6-f697575666af",
+   "cat": "social",
+   "ia": false,
+   "w": 720,
+   "h": 1280,
+   "dur": 16,
+   "poster": "media/posters/instalacao-viral.webp",
+   "hidden": false
+  },
+  {
    "id": "institucional-bruna-hara-03-ajustado",
    "guid": "f2a87579-6fbc-472a-998e-c3358e1a5e10",
    "cat": "social",
@@ -115,29 +126,7 @@
    "w": 1080,
    "h": 1920,
    "dur": 92,
-   "poster": "media/posters/institucional-bruna-hara-03-ajustado.webp",
-   "hidden": false
-  },
-  {
-   "id": "vitoria-absolvicao-01",
-   "guid": "1cfa6e48-0639-4d55-8719-17f3c598fe0b",
-   "cat": "social",
-   "ia": false,
-   "w": 2160,
-   "h": 3840,
-   "dur": 53,
-   "poster": "media/posters/vitoria-absolvicao-01.webp",
-   "hidden": false
-  },
-  {
-   "id": "dra-se-eu-recorrer-minha-pena-pode-aumentar-ajustado-03",
-   "guid": "2e05f71e-b74e-498d-8a29-a24dd4fbbe14",
-   "cat": "social",
-   "ia": false,
-   "w": 1080,
-   "h": 1920,
-   "dur": 59,
-   "poster": "media/posters/dra-se-eu-recorrer-minha-pena-pode-aumentar-ajustado-03.webp",
+   "poster": "https://arthurfranze.github.io/portfolio/media/covers/institucional-bruna-hara-03-ajustado-mvienwzx.jpg",
    "hidden": false
   },
   {
@@ -152,17 +141,6 @@
    "hidden": false
   },
   {
-   "id": "backstage-ensaio-bruna-hara-01",
-   "guid": "ed79a35d-a058-450f-b944-f0854c9c18d9",
-   "cat": "social",
-   "ia": false,
-   "w": 1080,
-   "h": 1920,
-   "dur": 70,
-   "poster": "media/posters/backstage-ensaio-bruna-hara-01.webp",
-   "hidden": false
-  },
-  {
    "id": "videos-osmary-natal-01",
    "guid": "09de0b44-8770-44e1-a966-fa5f18e5bf8d",
    "cat": "social",
@@ -171,6 +149,28 @@
    "h": 3840,
    "dur": 54,
    "poster": "media/posters/videos-osmary-natal-01.webp",
+   "hidden": false
+  },
+  {
+   "id": "dra-se-eu-recorrer-minha-pena-pode-aumentar-ajustado-03",
+   "guid": "2e05f71e-b74e-498d-8a29-a24dd4fbbe14",
+   "cat": "social",
+   "ia": false,
+   "w": 1080,
+   "h": 1920,
+   "dur": 59,
+   "poster": "bunny:thumbnail_1.jpg",
+   "hidden": false
+  },
+  {
+   "id": "video-fabrica-01",
+   "guid": "06059ae9-ef6a-4b73-bcc1-ef4c80e49d5c",
+   "cat": "social",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 37,
+   "poster": "https://arthurfranze.github.io/portfolio/media/covers/video-fabrica-01-mvieq0ds.jpg",
    "hidden": false
   },
   {
@@ -185,14 +185,25 @@
    "hidden": false
   },
   {
-   "id": "video-escola-samsara-02-legendado",
-   "guid": "efb04549-c27b-4519-8c35-9703b7ef85df",
+   "id": "marcenaria-inteligente-wal-03-ajustado",
+   "guid": "d2d22062-cbb4-41dd-8e4f-83102b4ec4f7",
+   "cat": "social",
+   "ia": false,
+   "w": 1080,
+   "h": 1920,
+   "dur": 48,
+   "poster": "bunny:thumbnail_5.jpg",
+   "hidden": false
+  },
+  {
+   "id": "projeto-bafometro-02",
+   "guid": "17ad7c94-9cb0-4c68-b089-60a6d0c520b5",
    "cat": "social",
    "ia": false,
    "w": 2160,
    "h": 3840,
-   "dur": 71,
-   "poster": "media/posters/video-escola-samsara-02-legendado.webp",
+   "dur": 52,
+   "poster": "bunny:thumbnail_1.jpg",
    "hidden": false
   },
   {
@@ -207,14 +218,58 @@
    "hidden": false
   },
   {
-   "id": "samsara-colacao-de-grau-infantil-01",
-   "guid": "3ce537ff-130b-4b77-8c78-c664b4a954a2",
+   "id": "video-2-wizard-02-legendado",
+   "guid": "07a0fbe5-ec29-4e81-83c7-5e0708e102c8",
+   "cat": "social",
+   "ia": false,
+   "w": 1080,
+   "h": 1920,
+   "dur": 48,
+   "poster": "media/posters/video-2-wizard-02-legendado.webp",
+   "hidden": false
+  },
+  {
+   "id": "vitoria-absolvicao-01",
+   "guid": "1cfa6e48-0639-4d55-8719-17f3c598fe0b",
    "cat": "social",
    "ia": false,
    "w": 2160,
    "h": 3840,
-   "dur": 55,
-   "poster": "media/posters/samsara-colacao-de-grau-infantil-01.webp",
+   "dur": 53,
+   "poster": "bunny:thumbnail.jpg",
+   "hidden": false
+  },
+  {
+   "id": "video-volta-aos-atendimentos-lb-01",
+   "guid": "17b8d902-4f84-48b9-892b-cf0ec3c91866",
+   "cat": "social",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 42,
+   "poster": "media/posters/video-volta-aos-atendimentos-lb-01.webp",
+   "hidden": false
+  },
+  {
+   "id": "backstage-ensaio-bruna-hara-01",
+   "guid": "ed79a35d-a058-450f-b944-f0854c9c18d9",
+   "cat": "social",
+   "ia": false,
+   "w": 1080,
+   "h": 1920,
+   "dur": 70,
+   "poster": "bunny:thumbnail_1.jpg",
+   "hidden": false
+  },
+  {
+   "id": "video-escola-samsara-02-legendado",
+   "guid": "efb04549-c27b-4519-8c35-9703b7ef85df",
+   "cat": "social",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 71,
+   "poster": "https://arthurfranze.github.io/portfolio/media/covers/video-escola-samsara-02-legendado-mvies68s.jpg",
    "hidden": false
   },
   {
@@ -225,7 +280,7 @@
    "w": 1080,
    "h": 1920,
    "dur": 64,
-   "poster": "media/posters/vhl-policlinica-geral-02.webp",
+   "poster": "bunny:thumbnail_4.jpg",
    "hidden": false
   },
   {
@@ -236,7 +291,18 @@
    "w": 2160,
    "h": 3840,
    "dur": 43,
-   "poster": "media/posters/institucional-majestade-01.webp",
+   "poster": "https://arthurfranze.github.io/portfolio/media/covers/institucional-majestade-01-mviesso8.jpg",
+   "hidden": false
+  },
+  {
+   "id": "samsara-colacao-de-grau-infantil-01",
+   "guid": "3ce537ff-130b-4b77-8c78-c664b4a954a2",
+   "cat": "social",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 55,
+   "poster": "bunny:thumbnail.jpg",
    "hidden": false
   },
   {
@@ -247,7 +313,7 @@
    "w": 2160,
    "h": 3840,
    "dur": 73,
-   "poster": "media/posters/imperador-home-design-01.webp",
+   "poster": "bunny:thumbnail_3.jpg",
    "hidden": false
   },
   {
@@ -269,18 +335,7 @@
    "w": 2160,
    "h": 3840,
    "dur": 61,
-   "poster": "media/posters/nao-ha-mais-nada-a-ser-feito-01.webp",
-   "hidden": false
-  },
-  {
-   "id": "marcenaria-inteligente-wal-03-ajustado",
-   "guid": "d2d22062-cbb4-41dd-8e4f-83102b4ec4f7",
-   "cat": "social",
-   "ia": false,
-   "w": 1080,
-   "h": 1920,
-   "dur": 48,
-   "poster": "media/posters/marcenaria-inteligente-wal-03-ajustado.webp",
+   "poster": "bunny:thumbnail_3.jpg",
    "hidden": false
   },
   {
@@ -291,7 +346,18 @@
    "w": 2160,
    "h": 3840,
    "dur": 105,
-   "poster": "media/posters/sw-films-wal-01-certo.webp",
+   "poster": "https://arthurfranze.github.io/portfolio/media/covers/sw-films-wal-01-certo-mvieuane.jpg",
+   "hidden": false
+  },
+  {
+   "id": "video-crm-amigo-pet-01-legendado",
+   "guid": "c1c6b763-8062-4a61-b4d6-bb459f4664c4",
+   "cat": "social",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 26,
+   "poster": "bunny:thumbnail_4.jpg",
    "hidden": false
   },
   {
@@ -306,28 +372,6 @@
    "hidden": false
   },
   {
-   "id": "video-2-wizard-02-legendado",
-   "guid": "07a0fbe5-ec29-4e81-83c7-5e0708e102c8",
-   "cat": "social",
-   "ia": false,
-   "w": 1080,
-   "h": 1920,
-   "dur": 48,
-   "poster": "media/posters/video-2-wizard-02-legendado.webp",
-   "hidden": false
-  },
-  {
-   "id": "video-crm-amigo-pet-01-legendado",
-   "guid": "c1c6b763-8062-4a61-b4d6-bb459f4664c4",
-   "cat": "social",
-   "ia": false,
-   "w": 2160,
-   "h": 3840,
-   "dur": 26,
-   "poster": "media/posters/video-crm-amigo-pet-01-legendado.webp",
-   "hidden": false
-  },
-  {
    "id": "video-delivery-amigo-pet-01-legendado",
    "guid": "4c757aa1-ff23-4b22-a0a9-92e812450519",
    "cat": "social",
@@ -336,39 +380,6 @@
    "h": 3840,
    "dur": 21,
    "poster": "media/posters/video-delivery-amigo-pet-01-legendado.webp",
-   "hidden": false
-  },
-  {
-   "id": "limpeza-de-pele-01",
-   "guid": "2c593c00-0805-4716-86f8-df57194ee60a",
-   "cat": "social",
-   "ia": false,
-   "w": 1080,
-   "h": 1920,
-   "dur": 32,
-   "poster": "media/posters/limpeza-de-pele-01.webp",
-   "hidden": false
-  },
-  {
-   "id": "video-volta-aos-atendimentos-lb-01",
-   "guid": "17b8d902-4f84-48b9-892b-cf0ec3c91866",
-   "cat": "social",
-   "ia": false,
-   "w": 2160,
-   "h": 3840,
-   "dur": 42,
-   "poster": "media/posters/video-volta-aos-atendimentos-lb-01.webp",
-   "hidden": false
-  },
-  {
-   "id": "projeto-preparando-o-ambiente-01",
-   "guid": "ffee0783-83c1-4332-ad78-c9739734bf0a",
-   "cat": "social",
-   "ia": true,
-   "w": 2160,
-   "h": 3840,
-   "dur": 24,
-   "poster": "media/posters/projeto-preparando-o-ambiente-01.webp",
    "hidden": false
   },
   {
@@ -383,6 +394,28 @@
    "hidden": false
   },
   {
+   "id": "limpeza-de-pele-01",
+   "guid": "2c593c00-0805-4716-86f8-df57194ee60a",
+   "cat": "social",
+   "ia": false,
+   "w": 1080,
+   "h": 1920,
+   "dur": 32,
+   "poster": "media/posters/limpeza-de-pele-01.webp",
+   "hidden": false
+  },
+  {
+   "id": "projeto-preparando-o-ambiente-01",
+   "guid": "ffee0783-83c1-4332-ad78-c9739734bf0a",
+   "cat": "social",
+   "ia": true,
+   "w": 2160,
+   "h": 3840,
+   "dur": 24,
+   "poster": "bunny:thumbnail_1.jpg",
+   "hidden": false
+  },
+  {
    "id": "video-aniversario-davi-01",
    "guid": "d7e01c23-da2b-49bf-abd6-533779386861",
    "cat": "social",
@@ -390,40 +423,7 @@
    "w": 2160,
    "h": 3840,
    "dur": 82,
-   "poster": "media/posters/video-aniversario-davi-01.webp",
-   "hidden": false
-  },
-  {
-   "id": "projeto-bafometro-02",
-   "guid": "17ad7c94-9cb0-4c68-b089-60a6d0c520b5",
-   "cat": "social",
-   "ia": false,
-   "w": 2160,
-   "h": 3840,
-   "dur": 52,
-   "poster": "media/posters/projeto-bafometro-02.webp",
-   "hidden": false
-  },
-  {
-   "id": "video-fabrica-01",
-   "guid": "06059ae9-ef6a-4b73-bcc1-ef4c80e49d5c",
-   "cat": "social",
-   "ia": false,
-   "w": 2160,
-   "h": 3840,
-   "dur": 37,
-   "poster": "media/posters/video-fabrica-01.webp",
-   "hidden": false
-  },
-  {
-   "id": "instalacao-viral",
-   "guid": "60fc0619-8dfd-4f0f-a5e6-f697575666af",
-   "cat": "social",
-   "ia": false,
-   "w": 720,
-   "h": 1280,
-   "dur": 16,
-   "poster": "media/posters/instalacao-viral.webp",
+   "poster": "bunny:thumbnail_5.jpg",
    "hidden": false
   },
   {
@@ -700,6 +700,18 @@
    "dur": 83,
    "poster": "media/posters/03-video-tirinha-9-16.webp",
    "hidden": false
+  },
+  {
+   "id": "escola-samsara-novo-espac-o-01",
+   "guid": "dcf7ab19-882c-406f-95c5-3ae3441939a6",
+   "w": 1080,
+   "h": 1920,
+   "dur": 39,
+   "poster": null,
+   "hidden": false,
+   "pending": true,
+   "cat": "social",
+   "ia": false
   }
  ]
 }
