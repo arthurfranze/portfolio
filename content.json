@@ -548,6 +548,28 @@
    "hidden": false
   },
   {
+   "id": "video-guarda-chuva-anuncio-01",
+   "guid": "adf479aa-af56-43d2-98fc-8b8d63b54186",
+   "cat": "ecom",
+   "ia": true,
+   "w": 1080,
+   "h": 1920,
+   "dur": 28,
+   "poster": "bunny:thumbnail_2.jpg",
+   "hidden": false
+  },
+  {
+   "id": "ice-blend-lancamento-inverno-03-ajustado",
+   "guid": "fcfb4550-d7e4-42ab-b171-f328adad5a04",
+   "cat": "ecom",
+   "ia": false,
+   "w": 1080,
+   "h": 1920,
+   "dur": 85,
+   "poster": "media/posters/ice-blend-lancamento-inverno-03-ajustado.webp",
+   "hidden": false
+  },
+  {
    "id": "projeto-apresentacao-milky-moo-01",
    "guid": "68fe0719-e579-4116-a0fb-df15d4367739",
    "cat": "ecom",
@@ -570,17 +592,6 @@
    "hidden": false
   },
   {
-   "id": "ice-blend-lancamento-inverno-03-ajustado",
-   "guid": "fcfb4550-d7e4-42ab-b171-f328adad5a04",
-   "cat": "ecom",
-   "ia": false,
-   "w": 1080,
-   "h": 1920,
-   "dur": 85,
-   "poster": "media/posters/ice-blend-lancamento-inverno-03-ajustado.webp",
-   "hidden": false
-  },
-  {
    "id": "video-tenis-aivus-teste-01",
    "guid": "1e0900ad-2a20-44d5-9e06-6d87474000f5",
    "cat": "ecom",
@@ -592,21 +603,10 @@
    "hidden": false
   },
   {
-   "id": "video-guarda-chuva-anuncio-01",
-   "guid": "adf479aa-af56-43d2-98fc-8b8d63b54186",
-   "cat": "ecom",
-   "ia": true,
-   "w": 1080,
-   "h": 1920,
-   "dur": 28,
-   "poster": "media/posters/video-guarda-chuva-anuncio-01.webp",
-   "hidden": false
-  },
-  {
    "id": "gran-nature-sem-narracao-01",
    "guid": "5ce0be08-dc22-4736-b6dd-9fabd316bc91",
    "cat": "ecom",
-   "ia": true,
+   "ia": false,
    "w": 2160,
    "h": 3840,
    "dur": 6,
@@ -616,7 +616,7 @@
   {
    "id": "ice-blend-dia-dos-namorados-05",
    "guid": "fe1ea090-6618-4c57-bacc-deeb399b3618",
-   "cat": "ecom",
+   "cat": "social",
    "ia": false,
    "w": 1080,
    "h": 1920,
