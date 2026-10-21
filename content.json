@@ -394,6 +394,17 @@
    "hidden": false
   },
   {
+   "id": "1-venezza-dia-das-maes-01-profi",
+   "guid": "08f7ad46-d3f9-4949-bd2b-1b814dce938d",
+   "cat": "social",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 42,
+   "poster": "bunny:thumbnail_4.jpg",
+   "hidden": false
+  },
+  {
    "id": "1-video-bless-02",
    "guid": "05e4b0d6-476b-42e8-a01d-548fd97fa734",
    "cat": "social",
@@ -416,6 +427,17 @@
    "hidden": false
   },
   {
+   "id": "1-bublebox-02",
+   "guid": "34b11abf-1c2f-40c5-8d63-6acf69222a88",
+   "cat": "social",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 80,
+   "poster": "bunny:thumbnail_2.jpg",
+   "hidden": false
+  },
+  {
    "id": "video-aniversario-davi-01",
    "guid": "d7e01c23-da2b-49bf-abd6-533779386861",
    "cat": "social",
@@ -424,6 +446,39 @@
    "h": 3840,
    "dur": 82,
    "poster": "https://arthurfranze.github.io/portfolio/media/covers/video-aniversario-davi-01-mviezvcv.jpg",
+   "hidden": false
+  },
+  {
+   "id": "ice-blend-dia-dos-namorados-05",
+   "guid": "fe1ea090-6618-4c57-bacc-deeb399b3618",
+   "cat": "social",
+   "ia": false,
+   "w": 1080,
+   "h": 1920,
+   "dur": 36,
+   "poster": "media/posters/ice-blend-dia-dos-namorados-05.webp",
+   "hidden": false
+  },
+  {
+   "id": "gran-nature-sem-narracao-01",
+   "guid": "5ce0be08-dc22-4736-b6dd-9fabd316bc91",
+   "cat": "social",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 6,
+   "poster": "bunny:thumbnail_4.jpg",
+   "hidden": false
+  },
+  {
+   "id": "1-video-dia-dos-namorados-01",
+   "guid": "14652e14-7f72-4d2a-a04c-9d97e065ff65",
+   "cat": "social",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 28,
+   "poster": "media/posters/1-video-dia-dos-namorados-01.webp",
    "hidden": false
   },
   {
@@ -603,61 +658,6 @@
    "hidden": false
   },
   {
-   "id": "gran-nature-sem-narracao-01",
-   "guid": "5ce0be08-dc22-4736-b6dd-9fabd316bc91",
-   "cat": "ecom",
-   "ia": false,
-   "w": 2160,
-   "h": 3840,
-   "dur": 6,
-   "poster": "media/posters/gran-nature-sem-narracao-01.webp",
-   "hidden": false
-  },
-  {
-   "id": "ice-blend-dia-dos-namorados-05",
-   "guid": "fe1ea090-6618-4c57-bacc-deeb399b3618",
-   "cat": "social",
-   "ia": false,
-   "w": 1080,
-   "h": 1920,
-   "dur": 36,
-   "poster": "media/posters/ice-blend-dia-dos-namorados-05.webp",
-   "hidden": false
-  },
-  {
-   "id": "1-bublebox-02",
-   "guid": "34b11abf-1c2f-40c5-8d63-6acf69222a88",
-   "cat": "ecom",
-   "ia": false,
-   "w": 2160,
-   "h": 3840,
-   "dur": 80,
-   "poster": "media/posters/1-bublebox-02.webp",
-   "hidden": false
-  },
-  {
-   "id": "1-video-dia-dos-namorados-01",
-   "guid": "14652e14-7f72-4d2a-a04c-9d97e065ff65",
-   "cat": "ecom",
-   "ia": false,
-   "w": 2160,
-   "h": 3840,
-   "dur": 28,
-   "poster": "media/posters/1-video-dia-dos-namorados-01.webp",
-   "hidden": false
-  },
-  {
-   "id": "1-venezza-dia-das-maes-01-profi",
-   "guid": "08f7ad46-d3f9-4949-bd2b-1b814dce938d",
-   "cat": "ecom",
-   "ia": false,
-   "w": 2160,
-   "h": 3840,
-   "dur": 42,
-   "poster": "media/posters/1-venezza-dia-das-maes-01-profi.webp",
-   "hidden": false
-  },
-  {
    "id": "principal-legenddo",
    "guid": "033e5c0f-d8e7-4f37-a19b-0ca299e60a8d",
    "cat": "ecom",
@@ -665,7 +665,7 @@
    "w": 2160,
    "h": 3840,
    "dur": 24,
-   "poster": "media/posters/principal-legenddo.webp",
+   "poster": "https://arthurfranze.github.io/portfolio/media/covers/principal-legenddo-mvifgj5i.jpg",
    "hidden": false
   },
   {
