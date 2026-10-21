@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Painel · Arthur Franze</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23070c16'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-style='italic' font-size='30' fill='%23eaa66a' text-anchor='middle'%3EAF%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <!-- LOGIN -->
+  <main class="login" data-view="login" hidden>
+    <form class="login__card" data-login>
+      <span class="logo">AF</span>
+      <h1>Painel do portfólio</h1>
+      <p>Entre com a sua senha de administrador.</p>
+      <input type="password" name="password" placeholder="Senha" autocomplete="current-password" required>
+      <button class="btn btn--accent" type="submit">Entrar</button>
+      <p class="login__error" data-login-error hidden></p>
+    </form>
+  </main>
+
+  <!-- PAINEL -->
+  <div data-view="app" hidden>
+    <header class="bar">
+      <a class="logo" href="/" target="_blank" rel="noopener" title="Abrir o site">AF</a>
+      <nav class="tabs" role="tablist">
+        <button role="tab" data-tab="portfolio" aria-selected="true">Portfólio</button>
+        <button role="tab" data-tab="reel">Topo</button>
+        <button role="tab" data-tab="texts">Textos</button>
+      </nav>
+      <span class="bar__status" data-status></span>
+      <div class="bar__actions">
+        <a class="btn btn--ghost btn--sm" href="/" target="_blank" rel="noopener">Ver site</a>
+        <button class="btn btn--accent btn--sm" data-save disabled>Salvar alterações</button>
+        <button class="btn btn--ghost btn--sm" data-logout title="Sair">Sair</button>
+      </div>
+    </header>
+
+    <!-- Portfólio -->
+    <section class="panel" data-panel="portfolio">
+      <div class="panel__head">
+        <div>
+          <h2>Portfólio</h2>
+          <p class="hint">Arraste os vídeos para mudar a ordem ou levar de uma categoria para outra. Arraste pela alça <b>⋮⋮</b> para mudar a ordem das categorias.</p>
+        </div>
+        <button class="btn btn--ghost" data-add-cat>+ Nova categoria</button>
+      </div>
+      <div class="cats" data-cats></div>
+    </section>
+
+    <!-- Topo -->
+    <section class="panel" data-panel="reel" hidden>
+      <div class="panel__head">
+        <div>
+          <h2>Roleta do topo</h2>
+          <p class="hint">É o que gira ao lado do seu nome: a foto e os vídeos de apresentação, nesta ordem. Arraste para reordenar.</p>
+        </div>
+      </div>
+      <div class="reel-list" data-reel-list></div>
+    </section>
+
+    <!-- Textos -->
+    <section class="panel" data-panel="texts" hidden>
+      <div class="panel__head">
+        <div>
+          <h2>Textos</h2>
+          <p class="hint">Dica: escreva <b>*assim*</b> para a palavra ficar em itálico dourado e use Enter para quebrar linha nos títulos.</p>
+        </div>
+      </div>
+      <div class="form" data-texts></div>
+    </section>
+  </div>
+
+  <!-- Editor de vídeo -->
+  <div class="modal" data-modal hidden>
+    <div class="modal__card" role="dialog" aria-modal="true" aria-label="Editar vídeo">
+      <button class="modal__close" data-modal-close aria-label="Fechar">✕</button>
+      <div class="modal__media"><video data-m-video controls playsinline crossorigin="anonymous"></video></div>
+      <div class="modal__side" data-m-side></div>
+    </div>
+  </div>
+
+  <div class="uploads" data-uploads hidden></div>
+  <div class="toast" data-toast hidden></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tus-js-client@4.1.0/dist/tus.min.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

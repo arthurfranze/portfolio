@@ -89,10 +89,10 @@
       }));
     }
 
-    const reel = initReel(C.reel.filter((s) => s.type === "photo" || s.guid), cdn);
+    const reel = initReel(C.reel.filter((s) => !s.hidden && (s.type === "photo" || (s.guid && !s.pending))), cdn);
 
     // Portfólio ----------------------------------------------------------
-    const items = C.videos.filter((v) => !v.hidden && v.guid);
+    const items = C.videos.filter((v) => !v.hidden && !v.pending && v.guid);
     const cats = C.categories.filter((c) => !c.hidden && items.some((v) => v.cat === c.id));
     const catLabel = Object.fromEntries(C.categories.map((c) => [c.id, c.label]));
     const byCat = Object.fromEntries(cats.map((c) => [c.id, items.filter((i) => i.cat === c.id)]));
