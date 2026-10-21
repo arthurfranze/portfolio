@@ -33,19 +33,27 @@
     <!-- HERO -->
     <section class="hero">
       <div class="hero__media reveal">
-        <div class="frame">
-          <img src="media/arthur.webp" alt="Retrato de Arthur Franze" width="1611" height="2000" fetchpriority="high">
-          <span class="frame__c frame__c--tl"></span><span class="frame__c frame__c--tr"></span>
-          <span class="frame__c frame__c--bl"></span><span class="frame__c frame__c--br"></span>
-          <div class="frame__hud frame__hud--top"><span class="rec"><i></i>REC</span><span class="tc" data-timecode>00:00:00:00</span></div>
-          <div class="frame__hud frame__hud--bot"><span>4K · 24 FPS</span><span>ISO 400 · f/1.8</span></div>
+        <div class="reel" data-reel tabindex="0" aria-roledescription="carrossel" aria-label="Apresentação em vídeo">
+          <div class="reel__viewport"><div class="reel__drum" data-drum></div></div>
+          <div class="reel__frame">
+            <span class="frame__c frame__c--tl"></span><span class="frame__c frame__c--tr"></span>
+            <span class="frame__c frame__c--bl"></span><span class="frame__c frame__c--br"></span>
+            <div class="frame__hud frame__hud--top"><span class="rec"><i></i>REC</span><span class="tc" data-timecode>00:00:00:00</span></div>
+            <div class="frame__hud frame__hud--bot"><span data-reel-count>01 / 01</span></div>
+            <button class="reel__sound" data-reel-sound hidden aria-label="Ativar som"></button>
+            <button class="reel__play" data-reel-play hidden aria-label="Tocar vídeo"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></button>
+            <span class="reel__bar"><i data-reel-bar></i></span>
+          </div>
+          <button class="reel__peek reel__peek--next" data-reel-next aria-label="Próximo"></button>
+          <button class="reel__peek reel__peek--prev" data-reel-prev aria-label="Anterior"></button>
+          <div class="reel__dots" data-reel-dots></div>
         </div>
       </div>
 
       <div class="hero__text">
-        <h1 class="hero__name reveal">Arthur<br><em>Franze</em></h1>
-        <p class="hero__lead reveal">Vídeos que fazem sua marca ser vista e lembrada.</p>
-        <p class="hero__desc reveal">Produzo audiovisual para marcas, profissionais e empreendimentos. Faço a captação com equipamento profissional, a edição pensada para prender a atenção e criações com inteligência artificial para imobiliário e e-commerce.</p>
+        <h1 class="hero__name reveal" data-t="heroName">Arthur<br><em>Franze</em></h1>
+        <p class="hero__lead reveal" data-t="heroLead">Vídeos que fazem sua marca ser vista e lembrada.</p>
+        <p class="hero__desc reveal" data-t="heroDesc">Produzo audiovisual para marcas, profissionais e empreendimentos. Faço a captação com equipamento profissional, a edição pensada para prender a atenção e criações com inteligência artificial para imobiliário e e-commerce.</p>
         <div class="hero__cta reveal">
           <a class="btn btn--accent" data-wa href="#">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2l-.5-.3Z"/></svg>
@@ -53,7 +61,7 @@
           </a>
           <a class="btn btn--ghost" href="#portfolio">Ver portfólio</a>
         </div>
-        <ul class="stats reveal">
+        <ul class="stats reveal" data-stats>
           <li><b>+200</b><span>projetos entregues</span></li>
           <li><b>+150M</b><span>visualizações</span></li>
           <li><b>IA</b><span>imóveis e produtos</span></li>
@@ -62,34 +70,14 @@
     </section>
 
     <!-- SERVIÇOS -->
-    <section class="services" id="servicos">
-      <article class="service reveal">
-        <span class="service__n">01</span>
-        <h2>Captação profissional</h2>
-        <p>Vou até você com câmera, áudio e iluminação profissionais. Também capto imagens aéreas com drone.</p>
-        <ul class="tags"><li>Câmera</li><li>Áudio</li><li>Luz</li><li>Drone</li></ul>
-      </article>
-      <article class="service reveal">
-        <span class="service__n">02</span>
-        <h2>Edição profissional</h2>
-        <p>Reels, anúncios, YouTube e institucionais com ritmo, legenda e tratamento de cor.</p>
-        <ul class="tags"><li>Reels</li><li>Anúncios</li><li>YouTube</li><li>Color</li></ul>
-      </article>
-      <article class="service reveal">
-        <span class="service__n">03</span>
-        <h2>Audiovisual com IA</h2>
-        <p>Vídeos de imóveis, produtos e institucionais de empresas criados com inteligência artificial, sem precisar montar um set.</p>
-        <ul class="tags"><li>Imobiliário</li><li>E-commerce</li><li>Institucional</li></ul>
-      </article>
-    </section>
-
+    <section class="services" id="servicos" data-services></section>
 
     <!-- PORTFÓLIO -->
     <section class="portfolio" id="portfolio">
       <div class="portfolio__head">
         <div>
-          <p class="kicker">Portfólio</p>
-          <h2 class="title">Trabalhos <em>selecionados</em></h2>
+          <p class="kicker" data-t="portfolioKicker">Portfólio</p>
+          <h2 class="title" data-t="portfolioTitle">Trabalhos <em>selecionados</em></h2>
         </div>
         <div class="chips" role="tablist" aria-label="Filtrar categorias" data-chips></div>
       </div>
@@ -99,22 +87,22 @@
     <!-- CONTATO -->
     <section class="contact" id="contato">
       <p class="kicker reveal">Contato</p>
-      <h2 class="contact__title reveal">Tem um projeto<br>em <em>mente?</em></h2>
-      <p class="contact__desc reveal">Me conta o que você precisa e eu te mando uma proposta.</p>
+      <h2 class="contact__title reveal" data-t="contactTitle">Tem um projeto<br>em <em>mente?</em></h2>
+      <p class="contact__desc reveal" data-t="contactDesc">Me conta o que você precisa e eu te mando uma proposta.</p>
       <div class="hero__cta reveal">
         <a class="btn btn--accent btn--lg" data-wa href="#">Chamar no WhatsApp</a>
       </div>
       <ul class="contact__list reveal">
-        <li><span>WhatsApp</span><a data-wa href="#">(44) 99903-0219</a></li>
-        <li><span>Instagram</span><a href="https://instagram.com/oarthurfranze" target="_blank" rel="noopener">@oarthurfranze</a></li>
-        <li><span>E-mail</span><a href="mailto:oarthurfranze@gmail.com">oarthurfranze@gmail.com</a></li>
+        <li><span>WhatsApp</span><a data-wa data-wa-label href="#">(44) 99903-0219</a></li>
+        <li><span>Instagram</span><a data-ig href="https://instagram.com/oarthurfranze" target="_blank" rel="noopener">@oarthurfranze</a></li>
+        <li><span>E-mail</span><a data-mail href="mailto:oarthurfranze@gmail.com">oarthurfranze@gmail.com</a></li>
       </ul>
     </section>
   </main>
 
   <footer class="footer">
     <span>© <span data-year></span> Arthur Franze</span>
-    <span>Captação · Edição · IA</span>
+    <span data-t="footer">Captação · Edição · IA</span>
   </footer>
 
   <a class="fab" data-wa href="#" aria-label="Chamar no WhatsApp">
@@ -134,7 +122,6 @@
     <button class="lightbox__nav lightbox__nav--next" data-lb-next aria-label="Próximo">›</button>
   </div>
 
-  <script src="data.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

@@ -1,0 +1,705 @@
+{
+ "bunnyCdn": "vz-444aad9b-d15.b-cdn.net",
+ "texts": {
+  "heroName": "Arthur\n*Franze*",
+  "heroLead": "Vídeos que fazem sua marca ser vista e lembrada.",
+  "heroDesc": "Produzo audiovisual para marcas, profissionais e empreendimentos. Faço a captação com equipamento profissional, a edição pensada para prender a atenção e criações com inteligência artificial para imobiliário e e-commerce.",
+  "portfolioKicker": "Portfólio",
+  "portfolioTitle": "Trabalhos *selecionados*",
+  "contactTitle": "Tem um projeto\nem *mente?*",
+  "contactDesc": "Me conta o que você precisa e eu te mando uma proposta.",
+  "footer": "Captação · Edição · IA"
+ },
+ "stats": [
+  {
+   "value": "+200",
+   "label": "projetos entregues"
+  },
+  {
+   "value": "+150M",
+   "label": "visualizações"
+  },
+  {
+   "value": "IA",
+   "label": "imóveis e produtos"
+  }
+ ],
+ "services": [
+  {
+   "title": "Captação profissional",
+   "text": "Vou até você com câmera, áudio e iluminação profissionais. Também capto imagens aéreas com drone.",
+   "tags": [
+    "Câmera",
+    "Áudio",
+    "Luz",
+    "Drone"
+   ]
+  },
+  {
+   "title": "Edição profissional",
+   "text": "Reels, anúncios, YouTube e institucionais com ritmo, legenda e tratamento de cor.",
+   "tags": [
+    "Reels",
+    "Anúncios",
+    "YouTube",
+    "Color"
+   ]
+  },
+  {
+   "title": "Audiovisual com IA",
+   "text": "Vídeos de imóveis, produtos e institucionais de empresas criados com inteligência artificial, sem precisar montar um set.",
+   "tags": [
+    "Imobiliário",
+    "E-commerce",
+    "Institucional"
+   ]
+  }
+ ],
+ "contact": {
+  "whatsapp": "5544999030219",
+  "whatsappLabel": "(44) 99903-0219",
+  "whatsappText": "Olá, Arthur! Vi seu portfólio e quero conversar sobre um projeto.",
+  "instagram": "oarthurfranze",
+  "email": "oarthurfranze@gmail.com"
+ },
+ "reel": [
+  {
+   "type": "photo",
+   "src": "media/arthur.webp"
+  },
+  {
+   "type": "video",
+   "id": "arthur-franze-portfolio-final",
+   "guid": "7c1416ab-05ef-482a-8a8c-6c2866d314ca",
+   "w": 1080,
+   "h": 1920,
+   "dur": 41
+  },
+  {
+   "type": "video",
+   "id": "arthur-franze-antes-depois-v2",
+   "guid": "bf3b2fc1-3685-4288-a33e-5fcfa92f7aaa",
+   "w": 1080,
+   "h": 1920,
+   "dur": 38
+  },
+  {
+   "type": "video",
+   "id": "o-arthur-franze-imobiliario-01",
+   "guid": "05c6ec12-eccd-400d-ab1e-be6c54be1ea2",
+   "w": 1080,
+   "h": 1920,
+   "dur": 67
+  }
+ ],
+ "categories": [
+  {
+   "id": "social",
+   "label": "Social Media"
+  },
+  {
+   "id": "imob",
+   "label": "Imobiliário"
+  },
+  {
+   "id": "ecom",
+   "label": "E-commerce & Produto"
+  }
+ ],
+ "videos": [
+  {
+   "id": "institucional-bruna-hara-03-ajustado",
+   "guid": "f2a87579-6fbc-472a-998e-c3358e1a5e10",
+   "cat": "social",
+   "ia": false,
+   "w": 1080,
+   "h": 1920,
+   "dur": 92,
+   "poster": "media/posters/institucional-bruna-hara-03-ajustado.webp",
+   "hidden": false
+  },
+  {
+   "id": "vitoria-absolvicao-01",
+   "guid": "1cfa6e48-0639-4d55-8719-17f3c598fe0b",
+   "cat": "social",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 53,
+   "poster": "media/posters/vitoria-absolvicao-01.webp",
+   "hidden": false
+  },
+  {
+   "id": "dra-se-eu-recorrer-minha-pena-pode-aumentar-ajustado-03",
+   "guid": "2e05f71e-b74e-498d-8a29-a24dd4fbbe14",
+   "cat": "social",
+   "ia": false,
+   "w": 1080,
+   "h": 1920,
+   "dur": 59,
+   "poster": "media/posters/dra-se-eu-recorrer-minha-pena-pode-aumentar-ajustado-03.webp",
+   "hidden": false
+  },
+  {
+   "id": "video-sensorial-lb-01",
+   "guid": "dc96edd8-bb13-458b-b8b2-d57537a75fe8",
+   "cat": "social",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 45,
+   "poster": "media/posters/video-sensorial-lb-01.webp",
+   "hidden": false
+  },
+  {
+   "id": "backstage-ensaio-bruna-hara-01",
+   "guid": "ed79a35d-a058-450f-b944-f0854c9c18d9",
+   "cat": "social",
+   "ia": false,
+   "w": 1080,
+   "h": 1920,
+   "dur": 70,
+   "poster": "media/posters/backstage-ensaio-bruna-hara-01.webp",
+   "hidden": false
+  },
+  {
+   "id": "videos-osmary-natal-01",
+   "guid": "09de0b44-8770-44e1-a966-fa5f18e5bf8d",
+   "cat": "social",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 54,
+   "poster": "media/posters/videos-osmary-natal-01.webp",
+   "hidden": false
+  },
+  {
+   "id": "mercedes-amg-finalizada-01",
+   "guid": "b5f888b9-ff44-4605-8ac4-7a78ec84b8e8",
+   "cat": "social",
+   "ia": false,
+   "w": 1080,
+   "h": 1920,
+   "dur": 21,
+   "poster": "media/posters/mercedes-amg-finalizada-01.webp",
+   "hidden": false
+  },
+  {
+   "id": "video-escola-samsara-02-legendado",
+   "guid": "efb04549-c27b-4519-8c35-9703b7ef85df",
+   "cat": "social",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 71,
+   "poster": "media/posters/video-escola-samsara-02-legendado.webp",
+   "hidden": false
+  },
+  {
+   "id": "levi-copacianorte-samsara-v1",
+   "guid": "45033e5f-9268-481f-969e-6b2a9b35502b",
+   "cat": "social",
+   "ia": false,
+   "w": 1080,
+   "h": 1920,
+   "dur": 47,
+   "poster": "media/posters/levi-copacianorte-samsara-v1.webp",
+   "hidden": false
+  },
+  {
+   "id": "samsara-colacao-de-grau-infantil-01",
+   "guid": "3ce537ff-130b-4b77-8c78-c664b4a954a2",
+   "cat": "social",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 55,
+   "poster": "media/posters/samsara-colacao-de-grau-infantil-01.webp",
+   "hidden": false
+  },
+  {
+   "id": "vhl-policlinica-geral-02",
+   "guid": "5042d01d-3e67-4729-865c-fab002ba8215",
+   "cat": "social",
+   "ia": false,
+   "w": 1080,
+   "h": 1920,
+   "dur": 64,
+   "poster": "media/posters/vhl-policlinica-geral-02.webp",
+   "hidden": false
+  },
+  {
+   "id": "institucional-majestade-01",
+   "guid": "b7b4471c-d989-4277-a781-6b0621997f48",
+   "cat": "social",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 43,
+   "poster": "media/posters/institucional-majestade-01.webp",
+   "hidden": false
+  },
+  {
+   "id": "imperador-home-design-01",
+   "guid": "e9bd982a-e903-4f34-b00e-c53d85df0941",
+   "cat": "social",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 73,
+   "poster": "media/posters/imperador-home-design-01.webp",
+   "hidden": false
+  },
+  {
+   "id": "vanessa-luz-da-lua-01",
+   "guid": "8e2b8403-827d-46d8-8f73-908d0c913e35",
+   "cat": "social",
+   "ia": false,
+   "w": 1080,
+   "h": 1920,
+   "dur": 47,
+   "poster": "media/posters/vanessa-luz-da-lua-01.webp",
+   "hidden": false
+  },
+  {
+   "id": "nao-ha-mais-nada-a-ser-feito-01",
+   "guid": "cb7a9541-bbb2-4402-8159-31bc8bbe31b2",
+   "cat": "social",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 61,
+   "poster": "media/posters/nao-ha-mais-nada-a-ser-feito-01.webp",
+   "hidden": false
+  },
+  {
+   "id": "marcenaria-inteligente-wal-03-ajustado",
+   "guid": "d2d22062-cbb4-41dd-8e4f-83102b4ec4f7",
+   "cat": "social",
+   "ia": false,
+   "w": 1080,
+   "h": 1920,
+   "dur": 48,
+   "poster": "media/posters/marcenaria-inteligente-wal-03-ajustado.webp",
+   "hidden": false
+  },
+  {
+   "id": "sw-films-wal-01-certo",
+   "guid": "a461dadd-cd86-4afb-8e2b-8874d03b9d1e",
+   "cat": "social",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 105,
+   "poster": "media/posters/sw-films-wal-01-certo.webp",
+   "hidden": false
+  },
+  {
+   "id": "video-wal-pos-mudanca-01-sem-legenda",
+   "guid": "38fe719d-b00c-49e1-bb52-5ea66585af0b",
+   "cat": "social",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 62,
+   "poster": "media/posters/video-wal-pos-mudanca-01-sem-legenda.webp",
+   "hidden": false
+  },
+  {
+   "id": "video-2-wizard-02-legendado",
+   "guid": "07a0fbe5-ec29-4e81-83c7-5e0708e102c8",
+   "cat": "social",
+   "ia": false,
+   "w": 1080,
+   "h": 1920,
+   "dur": 48,
+   "poster": "media/posters/video-2-wizard-02-legendado.webp",
+   "hidden": false
+  },
+  {
+   "id": "video-crm-amigo-pet-01-legendado",
+   "guid": "c1c6b763-8062-4a61-b4d6-bb459f4664c4",
+   "cat": "social",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 26,
+   "poster": "media/posters/video-crm-amigo-pet-01-legendado.webp",
+   "hidden": false
+  },
+  {
+   "id": "video-delivery-amigo-pet-01-legendado",
+   "guid": "4c757aa1-ff23-4b22-a0a9-92e812450519",
+   "cat": "social",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 21,
+   "poster": "media/posters/video-delivery-amigo-pet-01-legendado.webp",
+   "hidden": false
+  },
+  {
+   "id": "limpeza-de-pele-01",
+   "guid": "2c593c00-0805-4716-86f8-df57194ee60a",
+   "cat": "social",
+   "ia": false,
+   "w": 1080,
+   "h": 1920,
+   "dur": 32,
+   "poster": "media/posters/limpeza-de-pele-01.webp",
+   "hidden": false
+  },
+  {
+   "id": "video-volta-aos-atendimentos-lb-01",
+   "guid": "17b8d902-4f84-48b9-892b-cf0ec3c91866",
+   "cat": "social",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 42,
+   "poster": "media/posters/video-volta-aos-atendimentos-lb-01.webp",
+   "hidden": false
+  },
+  {
+   "id": "projeto-preparando-o-ambiente-01",
+   "guid": "ffee0783-83c1-4332-ad78-c9739734bf0a",
+   "cat": "social",
+   "ia": true,
+   "w": 2160,
+   "h": 3840,
+   "dur": 24,
+   "poster": "media/posters/projeto-preparando-o-ambiente-01.webp",
+   "hidden": false
+  },
+  {
+   "id": "1-video-bless-02",
+   "guid": "05e4b0d6-476b-42e8-a01d-548fd97fa734",
+   "cat": "social",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 14,
+   "poster": "media/posters/1-video-bless-02.webp",
+   "hidden": false
+  },
+  {
+   "id": "video-aniversario-davi-01",
+   "guid": "d7e01c23-da2b-49bf-abd6-533779386861",
+   "cat": "social",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 82,
+   "poster": "media/posters/video-aniversario-davi-01.webp",
+   "hidden": false
+  },
+  {
+   "id": "projeto-bafometro-02",
+   "guid": "17ad7c94-9cb0-4c68-b089-60a6d0c520b5",
+   "cat": "social",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 52,
+   "poster": "media/posters/projeto-bafometro-02.webp",
+   "hidden": false
+  },
+  {
+   "id": "video-fabrica-01",
+   "guid": "06059ae9-ef6a-4b73-bcc1-ef4c80e49d5c",
+   "cat": "social",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 37,
+   "poster": "media/posters/video-fabrica-01.webp",
+   "hidden": false
+  },
+  {
+   "id": "instalacao-viral",
+   "guid": "60fc0619-8dfd-4f0f-a5e6-f697575666af",
+   "cat": "social",
+   "ia": false,
+   "w": 720,
+   "h": 1280,
+   "dur": 16,
+   "poster": "media/posters/instalacao-viral.webp",
+   "hidden": false
+  },
+  {
+   "id": "move-thekonciergerie-arcdetriomphe-demo-01",
+   "guid": "c1b33ced-1599-44c9-ace1-f7b73ee1002d",
+   "cat": "imob",
+   "ia": true,
+   "w": 1920,
+   "h": 1080,
+   "dur": 37,
+   "poster": "media/posters/move-thekonciergerie-arcdetriomphe-demo-01.webp",
+   "hidden": false
+  },
+  {
+   "id": "residencial-grecco-video-dos-2-imoveis-com-fala-do-alexandre-01",
+   "guid": "cc8c4a7d-b79b-4b52-bd85-9b894a4e3d64",
+   "cat": "imob",
+   "ia": false,
+   "w": 1080,
+   "h": 1920,
+   "dur": 45,
+   "poster": "media/posters/residencial-grecco-video-dos-2-imoveis-com-fala-do-alexandre-01.webp",
+   "hidden": false
+  },
+  {
+   "id": "aura-tambore-projeto-teste-01",
+   "guid": "3f98e046-31cb-4e0d-bf71-6ece44907c09",
+   "cat": "imob",
+   "ia": true,
+   "w": 1920,
+   "h": 1080,
+   "dur": 20,
+   "poster": "media/posters/aura-tambore-projeto-teste-01.webp",
+   "hidden": false
+  },
+  {
+   "id": "video-01-modelo-2",
+   "guid": "961b462e-3773-432c-a221-a11d6aa0e64c",
+   "cat": "imob",
+   "ia": true,
+   "w": 1080,
+   "h": 1920,
+   "dur": 64,
+   "poster": "media/posters/video-01-modelo-2.webp",
+   "hidden": false
+  },
+  {
+   "id": "thelander-cocteau-paris-1620x1080-web",
+   "guid": "9ec1f9e4-0ef3-4216-8a23-397719f6d841",
+   "cat": "imob",
+   "ia": true,
+   "w": 1620,
+   "h": 1080,
+   "dur": 55,
+   "poster": "media/posters/thelander-cocteau-paris-1620x1080-web.webp",
+   "hidden": false
+  },
+  {
+   "id": "institucional-geral-legendado-01-grecco-arkaplan",
+   "guid": "0138c18f-7f3f-4bc6-a161-4ee3cf59bd09",
+   "cat": "imob",
+   "ia": false,
+   "w": 1080,
+   "h": 1920,
+   "dur": 69,
+   "poster": "media/posters/institucional-geral-legendado-01-grecco-arkaplan.webp",
+   "hidden": false
+  },
+  {
+   "id": "mira-este-apartamento",
+   "guid": "8850b880-4fa2-4f8e-80c9-d40fa9ce160e",
+   "cat": "imob",
+   "ia": false,
+   "w": 1280,
+   "h": 720,
+   "dur": 50,
+   "poster": "media/posters/mira-este-apartamento.webp",
+   "hidden": false
+  },
+  {
+   "id": "institucional-arkaplan-01",
+   "guid": "0a2cc207-d433-41d9-802e-eaa386dea804",
+   "cat": "imob",
+   "ia": false,
+   "w": 1080,
+   "h": 1920,
+   "dur": 54,
+   "poster": "media/posters/institucional-arkaplan-01.webp",
+   "hidden": false
+  },
+  {
+   "id": "loteamento-video-institucional-grecco-02-ajustado",
+   "guid": "157bda42-79c9-4615-9ab9-16278e64961e",
+   "cat": "imob",
+   "ia": false,
+   "w": 1080,
+   "h": 1920,
+   "dur": 58,
+   "poster": "media/posters/loteamento-video-institucional-grecco-02-ajustado.webp",
+   "hidden": false
+  },
+  {
+   "id": "video-01-modelo-1",
+   "guid": "7f1110e8-bd9f-4899-8f04-cdf8aafbda32",
+   "cat": "imob",
+   "ia": true,
+   "w": 1080,
+   "h": 1920,
+   "dur": 65,
+   "poster": "media/posters/video-01-modelo-1.webp",
+   "hidden": false
+  },
+  {
+   "id": "apresentacao-imobiliaria",
+   "guid": "74675d39-4814-46da-86e4-825d9ac68eee",
+   "cat": "imob",
+   "ia": false,
+   "w": 720,
+   "h": 1280,
+   "dur": 20,
+   "poster": "media/posters/apresentacao-imobiliaria.webp",
+   "hidden": false
+  },
+  {
+   "id": "projeto-apresentacao-milky-moo-01",
+   "guid": "68fe0719-e579-4116-a0fb-df15d4367739",
+   "cat": "ecom",
+   "ia": true,
+   "w": 1080,
+   "h": 1920,
+   "dur": 30,
+   "poster": "media/posters/projeto-apresentacao-milky-moo-01.webp",
+   "hidden": false
+  },
+  {
+   "id": "red-silver-teste-01",
+   "guid": "3c8f3375-7193-40d6-b938-14ea9ebb6e6f",
+   "cat": "ecom",
+   "ia": true,
+   "w": 1080,
+   "h": 1920,
+   "dur": 40,
+   "poster": "media/posters/red-silver-teste-01.webp",
+   "hidden": false
+  },
+  {
+   "id": "ice-blend-lancamento-inverno-03-ajustado",
+   "guid": "fcfb4550-d7e4-42ab-b171-f328adad5a04",
+   "cat": "ecom",
+   "ia": false,
+   "w": 1080,
+   "h": 1920,
+   "dur": 85,
+   "poster": "media/posters/ice-blend-lancamento-inverno-03-ajustado.webp",
+   "hidden": false
+  },
+  {
+   "id": "video-tenis-aivus-teste-01",
+   "guid": "1e0900ad-2a20-44d5-9e06-6d87474000f5",
+   "cat": "ecom",
+   "ia": true,
+   "w": 1080,
+   "h": 1920,
+   "dur": 16,
+   "poster": "media/posters/video-tenis-aivus-teste-01.webp",
+   "hidden": false
+  },
+  {
+   "id": "video-guarda-chuva-anuncio-01",
+   "guid": "adf479aa-af56-43d2-98fc-8b8d63b54186",
+   "cat": "ecom",
+   "ia": true,
+   "w": 1080,
+   "h": 1920,
+   "dur": 28,
+   "poster": "media/posters/video-guarda-chuva-anuncio-01.webp",
+   "hidden": false
+  },
+  {
+   "id": "gran-nature-sem-narracao-01",
+   "guid": "5ce0be08-dc22-4736-b6dd-9fabd316bc91",
+   "cat": "ecom",
+   "ia": true,
+   "w": 2160,
+   "h": 3840,
+   "dur": 6,
+   "poster": "media/posters/gran-nature-sem-narracao-01.webp",
+   "hidden": false
+  },
+  {
+   "id": "ice-blend-dia-dos-namorados-05",
+   "guid": "fe1ea090-6618-4c57-bacc-deeb399b3618",
+   "cat": "ecom",
+   "ia": false,
+   "w": 1080,
+   "h": 1920,
+   "dur": 36,
+   "poster": "media/posters/ice-blend-dia-dos-namorados-05.webp",
+   "hidden": false
+  },
+  {
+   "id": "1-bublebox-02",
+   "guid": "34b11abf-1c2f-40c5-8d63-6acf69222a88",
+   "cat": "ecom",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 80,
+   "poster": "media/posters/1-bublebox-02.webp",
+   "hidden": false
+  },
+  {
+   "id": "1-video-dia-dos-namorados-01",
+   "guid": "14652e14-7f72-4d2a-a04c-9d97e065ff65",
+   "cat": "ecom",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 28,
+   "poster": "media/posters/1-video-dia-dos-namorados-01.webp",
+   "hidden": false
+  },
+  {
+   "id": "1-venezza-dia-das-maes-01-profi",
+   "guid": "08f7ad46-d3f9-4949-bd2b-1b814dce938d",
+   "cat": "ecom",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 42,
+   "poster": "media/posters/1-venezza-dia-das-maes-01-profi.webp",
+   "hidden": false
+  },
+  {
+   "id": "principal-legenddo",
+   "guid": "033e5c0f-d8e7-4f37-a19b-0ca299e60a8d",
+   "cat": "ecom",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 24,
+   "poster": "media/posters/principal-legenddo.webp",
+   "hidden": false
+  },
+  {
+   "id": "modelo-viral-certo",
+   "guid": "409f012c-2aa3-40e7-bcc8-0d852969b7f4",
+   "cat": "ecom",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 35,
+   "poster": "media/posters/modelo-viral-certo.webp",
+   "hidden": false
+  },
+  {
+   "id": "variacao-2",
+   "guid": "f573c6c3-0bba-45c9-812e-8efc360b1d33",
+   "cat": "ecom",
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 32,
+   "poster": "media/posters/variacao-2.webp",
+   "hidden": false
+  },
+  {
+   "id": "03-video-tirinha-9-16",
+   "guid": "31afe069-cfe8-4272-b343-abb232a60551",
+   "cat": "ecom",
+   "ia": true,
+   "w": 2160,
+   "h": 3840,
+   "dur": 83,
+   "poster": "media/posters/03-video-tirinha-9-16.webp",
+   "hidden": false
+  }
+ ]
+}

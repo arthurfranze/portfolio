@@ -27,6 +27,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
@@ -105,15 +106,43 @@ main, .nav, .footer { position: relative; z-index: 1; }
 .hero__media { order: 2; }
 .hero__text { order: 1; }
 
-.frame { position: relative; aspect-ratio: 4 / 5; border-radius: 28px; overflow: hidden; background: var(--bg-2); }
-.frame img {
-  width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%;
-  -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
-          mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
-  transform: scale(1.04); transition: transform 1.6s var(--ease);
+/* Roleta do topo: cilindro 3D que gira pra baixo (foto -> vídeos -> foto) */
+.reel { --fh: min(68svh, 680px); --fw: calc(var(--fh) * 9 / 16); position: relative; height: calc(var(--fh) * 1.28); outline: none; }
+.reel__viewport {
+  position: absolute; inset: 0; overflow: hidden; perspective: 1700px;
+  -webkit-mask-image: linear-gradient(transparent 0, #000 9%, #000 91%, transparent 100%);
+          mask-image: linear-gradient(transparent 0, #000 9%, #000 91%, transparent 100%);
 }
-.frame:hover img { transform: scale(1); }
-.frame::after { content: ""; position: absolute; inset: 0; border-radius: inherit; border: 1px solid var(--line); pointer-events: none; }
+.reel__drum {
+  position: absolute; left: 50%; top: 50%; width: var(--fw); height: var(--fh);
+  margin: calc(var(--fh) / -2) 0 0 calc(var(--fw) / -2);
+  transform-style: preserve-3d; transition: transform 1.15s cubic-bezier(.68, 0, .18, 1);
+}
+.reel__drum.no-anim { transition: none; }
+.reel__face { position: absolute; inset: 0; border-radius: 26px; overflow: hidden; background: var(--bg-2); backface-visibility: hidden; -webkit-backface-visibility: hidden; transition: opacity .5s; }
+.reel__face.is-hidden { opacity: 0; }
+.reel__face img, .reel__face video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.reel__face img { object-position: 50% 30%; }
+.reel__face::after { content: ""; position: absolute; inset: 0; background: rgba(7, 12, 22, .62); transition: opacity .9s; pointer-events: none; }
+.reel__face.is-active::after { opacity: 0; }
+.reel__frame { position: absolute; left: 50%; top: 50%; width: var(--fw); height: var(--fh); transform: translate(-50%, -50%); border-radius: 26px; pointer-events: none; box-shadow: 0 0 0 1px var(--line), 0 50px 120px -50px rgba(0, 0, 0, .9); }
+.reel__frame .frame__hud { left: 44px; right: 44px; }
+.reel__bar { position: absolute; left: 18px; right: 18px; bottom: 12px; height: 2px; border-radius: 2px; background: rgba(233, 237, 243, .16); overflow: hidden; }
+.reel__bar i { position: absolute; inset: 0 auto 0 0; width: 0; background: var(--accent); }
+.reel__sound { pointer-events: auto; position: absolute; right: 14px; bottom: 26px; height: 34px; padding: 0 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px; background: rgba(7, 12, 22, .55); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, .14); font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--text); transition: background .2s; }
+.reel__sound:hover { background: rgba(7, 12, 22, .8); }
+.reel__sound svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.reel__play { pointer-events: auto; position: absolute; left: 50%; top: 50%; width: 68px; height: 68px; margin: -34px 0 0 -34px; border-radius: 50%; display: grid; place-items: center; background: rgba(233, 237, 243, .16); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, .3); }
+.reel__play svg { width: 22px; height: 22px; fill: #fff; margin-left: 3px; }
+.reel__peek { position: absolute; left: 50%; width: var(--fw); height: calc(var(--fh) * .14); transform: translateX(-50%); cursor: pointer; }
+.reel__peek--next { top: 0; }
+.reel__peek--prev { bottom: 0; }
+.reel__face, .reel__frame { cursor: pointer; }
+.reel__dots { position: absolute; top: 50%; left: calc(50% + var(--fw) / 2 + 22px); transform: translateY(-50%); display: flex; flex-direction: column; gap: 8px; }
+.reel__dots button { width: 3px; height: 14px; padding: 0; border-radius: 3px; background: rgba(233, 237, 243, .25); transition: height .4s var(--ease), background .4s; }
+.reel__dots button[aria-current="true"] { height: 34px; background: var(--accent); }
+.reel__dots button::before { content: ""; position: absolute; inset: -6px -10px; }
+.reel__dots button { position: relative; }
 .frame__c { position: absolute; width: 22px; height: 22px; border-color: rgba(233, 237, 243, .7); border-style: solid; border-width: 0; }
 .frame__c--tl { top: 18px; left: 18px; border-top-width: 1.5px; border-left-width: 1.5px; }
 .frame__c--tr { top: 18px; right: 18px; border-top-width: 1.5px; border-right-width: 1.5px; }
@@ -267,16 +296,10 @@ main, .nav, .footer { position: relative; z-index: 1; }
 @media (max-width: 860px) {
   .nav__links { display: none; }
   .hero { grid-template-columns: 1fr; padding-top: 84px; min-height: 0; gap: 0; }
-  .hero__media { order: 1; margin: 0 calc(var(--gutter) * -1); }
-  .hero__text { order: 2; margin-top: -88px; position: relative; }
-  .frame { border-radius: 0; aspect-ratio: 4 / 4.6; }
-  .frame::after { display: none; }
-  .frame img { -webkit-mask-image: linear-gradient(to bottom, #000 50%, transparent 96%); mask-image: linear-gradient(to bottom, #000 50%, transparent 96%); }
-  .frame__c--bl, .frame__c--br, .frame__hud--bot { display: none; }
-  .frame__c--tl, .frame__c--tr { top: 14px; }
-  .frame__c--tl { left: 16px; } .frame__c--tr { right: 16px; }
-  .frame__hud { left: 44px; right: 44px; }
-  .frame__hud--top { top: 18px; }
+  .hero__media { order: 1; }
+  .hero__text { order: 2; margin-top: 8px; position: relative; }
+  .reel { --fh: min(122vw, 60svh); }
+  .reel__frame .frame__hud { left: 40px; right: 40px; }
   .hero__name { font-size: clamp(64px, 20vw, 120px); }
   .hero__name em { padding-left: .4em; }
   .hero__lead { margin-top: 24px; }
@@ -315,6 +338,7 @@ main, .nav, .footer { position: relative; z-index: 1; }
   .spotlight { background: radial-gradient(900px circle at 85% -10%, rgba(49, 81, 107, .4), transparent 60%); }
 }
 @media (prefers-reduced-motion: reduce) {
+  .reel__drum { transition: none !important; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .reveal { opacity: 1; transform: none; }
   html { scroll-behavior: auto; }
