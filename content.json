@@ -700,6 +700,18 @@
    "dur": 83,
    "poster": "media/posters/03-video-tirinha-9-16.webp",
    "hidden": false
+  },
+  {
+   "id": "vi-deo-copa-cianorte-jiujitsu-01",
+   "guid": "a36e822b-24ff-4db5-b7f8-b1c2597303f5",
+   "w": 1080,
+   "h": 1920,
+   "dur": 67,
+   "poster": null,
+   "hidden": false,
+   "pending": true,
+   "cat": "social",
+   "ia": false
   }
  ]
 }
