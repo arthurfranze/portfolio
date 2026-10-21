@@ -196,6 +196,17 @@
    "hidden": false
   },
   {
+   "id": "limpeza-de-pele-01",
+   "guid": "2c593c00-0805-4716-86f8-df57194ee60a",
+   "cat": "social",
+   "ia": false,
+   "w": 1080,
+   "h": 1920,
+   "dur": 32,
+   "poster": "bunny:thumbnail_3.jpg",
+   "hidden": false
+  },
+  {
    "id": "projeto-bafometro-02",
    "guid": "17ad7c94-9cb0-4c68-b089-60a6d0c520b5",
    "cat": "social",
@@ -391,17 +402,6 @@
    "h": 3840,
    "dur": 14,
    "poster": "media/posters/1-video-bless-02.webp",
-   "hidden": false
-  },
-  {
-   "id": "limpeza-de-pele-01",
-   "guid": "2c593c00-0805-4716-86f8-df57194ee60a",
-   "cat": "social",
-   "ia": false,
-   "w": 1080,
-   "h": 1920,
-   "dur": 32,
-   "poster": "media/posters/limpeza-de-pele-01.webp",
    "hidden": false
   },
   {
