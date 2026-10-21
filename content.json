@@ -427,28 +427,6 @@
    "hidden": false
   },
   {
-   "id": "move-thekonciergerie-arcdetriomphe-demo-01",
-   "guid": "c1b33ced-1599-44c9-ace1-f7b73ee1002d",
-   "cat": "imob",
-   "ia": true,
-   "w": 1920,
-   "h": 1080,
-   "dur": 37,
-   "poster": "media/posters/move-thekonciergerie-arcdetriomphe-demo-01.webp",
-   "hidden": false
-  },
-  {
-   "id": "residencial-grecco-video-dos-2-imoveis-com-fala-do-alexandre-01",
-   "guid": "cc8c4a7d-b79b-4b52-bd85-9b894a4e3d64",
-   "cat": "imob",
-   "ia": false,
-   "w": 1080,
-   "h": 1920,
-   "dur": 45,
-   "poster": "media/posters/residencial-grecco-video-dos-2-imoveis-com-fala-do-alexandre-01.webp",
-   "hidden": false
-  },
-  {
    "id": "aura-tambore-projeto-teste-01",
    "guid": "3f98e046-31cb-4e0d-bf71-6ece44907c09",
    "cat": "imob",
@@ -471,28 +449,6 @@
    "hidden": false
   },
   {
-   "id": "thelander-cocteau-paris-1620x1080-web",
-   "guid": "9ec1f9e4-0ef3-4216-8a23-397719f6d841",
-   "cat": "imob",
-   "ia": true,
-   "w": 1620,
-   "h": 1080,
-   "dur": 55,
-   "poster": "media/posters/thelander-cocteau-paris-1620x1080-web.webp",
-   "hidden": false
-  },
-  {
-   "id": "institucional-geral-legendado-01-grecco-arkaplan",
-   "guid": "0138c18f-7f3f-4bc6-a161-4ee3cf59bd09",
-   "cat": "imob",
-   "ia": false,
-   "w": 1080,
-   "h": 1920,
-   "dur": 69,
-   "poster": "media/posters/institucional-geral-legendado-01-grecco-arkaplan.webp",
-   "hidden": false
-  },
-  {
    "id": "mira-este-apartamento",
    "guid": "8850b880-4fa2-4f8e-80c9-d40fa9ce160e",
    "cat": "imob",
@@ -500,29 +456,29 @@
    "w": 1280,
    "h": 720,
    "dur": 50,
-   "poster": "media/posters/mira-este-apartamento.webp",
+   "poster": "bunny:thumbnail_4.jpg",
    "hidden": false
   },
   {
-   "id": "institucional-arkaplan-01",
-   "guid": "0a2cc207-d433-41d9-802e-eaa386dea804",
+   "id": "residencial-grecco-video-dos-2-imoveis-com-fala-do-alexandre-01",
+   "guid": "cc8c4a7d-b79b-4b52-bd85-9b894a4e3d64",
    "cat": "imob",
-   "ia": false,
+   "ia": true,
    "w": 1080,
    "h": 1920,
-   "dur": 54,
-   "poster": "media/posters/institucional-arkaplan-01.webp",
+   "dur": 45,
+   "poster": "media/posters/residencial-grecco-video-dos-2-imoveis-com-fala-do-alexandre-01.webp",
    "hidden": false
   },
   {
-   "id": "loteamento-video-institucional-grecco-02-ajustado",
-   "guid": "157bda42-79c9-4615-9ab9-16278e64961e",
+   "id": "move-thekonciergerie-arcdetriomphe-demo-01",
+   "guid": "c1b33ced-1599-44c9-ace1-f7b73ee1002d",
    "cat": "imob",
-   "ia": false,
-   "w": 1080,
-   "h": 1920,
-   "dur": 58,
-   "poster": "media/posters/loteamento-video-institucional-grecco-02-ajustado.webp",
+   "ia": true,
+   "w": 1920,
+   "h": 1080,
+   "dur": 37,
+   "poster": "bunny:thumbnail_1.jpg",
    "hidden": false
   },
   {
@@ -537,14 +493,58 @@
    "hidden": false
   },
   {
+   "id": "thelander-cocteau-paris-1620x1080-web",
+   "guid": "9ec1f9e4-0ef3-4216-8a23-397719f6d841",
+   "cat": "imob",
+   "ia": true,
+   "w": 1620,
+   "h": 1080,
+   "dur": 55,
+   "poster": "media/posters/thelander-cocteau-paris-1620x1080-web.webp",
+   "hidden": false
+  },
+  {
+   "id": "institucional-geral-legendado-01-grecco-arkaplan",
+   "guid": "0138c18f-7f3f-4bc6-a161-4ee3cf59bd09",
+   "cat": "imob",
+   "ia": true,
+   "w": 1080,
+   "h": 1920,
+   "dur": 69,
+   "poster": "media/posters/institucional-geral-legendado-01-grecco-arkaplan.webp",
+   "hidden": false
+  },
+  {
+   "id": "institucional-arkaplan-01",
+   "guid": "0a2cc207-d433-41d9-802e-eaa386dea804",
+   "cat": "imob",
+   "ia": false,
+   "w": 1080,
+   "h": 1920,
+   "dur": 54,
+   "poster": "https://arthurfranze.github.io/portfolio/media/covers/institucional-arkaplan-01-mvif8saf.jpg",
+   "hidden": false
+  },
+  {
+   "id": "loteamento-video-institucional-grecco-02-ajustado",
+   "guid": "157bda42-79c9-4615-9ab9-16278e64961e",
+   "cat": "imob",
+   "ia": true,
+   "w": 1080,
+   "h": 1920,
+   "dur": 58,
+   "poster": "https://arthurfranze.github.io/portfolio/media/covers/loteamento-video-institucional-grecco-02-ajustado-mvif83q3.jpg",
+   "hidden": false
+  },
+  {
    "id": "apresentacao-imobiliaria",
    "guid": "74675d39-4814-46da-86e4-825d9ac68eee",
    "cat": "imob",
-   "ia": false,
+   "ia": true,
    "w": 720,
    "h": 1280,
    "dur": 20,
-   "poster": "media/posters/apresentacao-imobiliaria.webp",
+   "poster": "bunny:thumbnail_4.jpg",
    "hidden": false
   },
   {
