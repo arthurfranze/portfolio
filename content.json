@@ -728,6 +728,20 @@
    "pending": false,
    "cat": "youtube",
    "ia": false
+  },
+  {
+   "id": "yt-79kMZEB2tmY",
+   "yt": "79kMZEB2tmY",
+   "cat": "youtube",
+   "ia": false,
+   "w": 16,
+   "h": 9,
+   "dur": 0,
+   "title": "FIZ UMA FESTA SURPRESA PRA MINHA MELHOR AMIGA 💖",
+   "channel": "Ceci Pedersoli",
+   "channelUrl": "https://www.youtube.com/@cecipedersoli",
+   "poster": null,
+   "hidden": false
   }
  ]
 }
