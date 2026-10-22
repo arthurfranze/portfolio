@@ -104,6 +104,10 @@
   {
    "id": "ecom",
    "label": "E-commerce & Produto"
+  },
+  {
+   "id": "youtube",
+   "label": "YouTube"
   }
  ],
  "videos": [
@@ -712,6 +716,18 @@
    "dur": 83,
    "poster": "media/posters/03-video-tirinha-9-16.webp",
    "hidden": false
+  },
+  {
+   "id": "waggoner-ranch-sample-v2",
+   "guid": "06d5fc33-b266-4b63-969b-399972248a22",
+   "w": 1920,
+   "h": 1080,
+   "dur": 78,
+   "poster": null,
+   "hidden": false,
+   "pending": true,
+   "cat": "youtube",
+   "ia": false
   }
  ]
 }
