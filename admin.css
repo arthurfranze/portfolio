@@ -87,6 +87,10 @@ label { display: block; }
 .tile__badges { position: absolute; top: 6px; left: 6px; right: 6px; display: flex; gap: 4px; flex-wrap: wrap; }
 .badge { padding: 2px 6px; border-radius: 5px; font-family: var(--mono); font-size: 9.5px; letter-spacing: .06em; background: rgba(7, 12, 22, .7); color: var(--text); }
 .badge--ia { background: var(--accent); color: var(--accent-ink); font-weight: 500; }
+.badge--yt { background: #ff0033; color: #fff; }
+.tile--yt b { color: #ff4d6a; }
+.modal__yt { width: 100%; aspect-ratio: 16 / 9; }
+.modal__yt iframe { width: 100%; height: 100%; border: 0; display: block; }
 .badge--warn { background: rgba(255, 107, 94, .9); color: #fff; }
 .badge--proc { background: rgba(95, 211, 138, .9); color: #06210f; }
 .tile__actions { position: absolute; left: 6px; right: 6px; bottom: 6px; display: flex; gap: 4px; justify-content: center; opacity: 0; transition: opacity .2s; }

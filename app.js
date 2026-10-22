@@ -35,10 +35,11 @@
 
   function render(C) {
     const cdn = (guid, file) => `https://${C.bunnyCdn}/${guid}/${file}`;
+    const ytThumb = (id, q = "maxresdefault") => `https://i.ytimg.com/vi/${id}/${q}.jpg`;
     const posterOf = (it) => {
       if (it.poster && it.poster.startsWith("bunny:")) return cdn(it.guid, it.poster.slice(6));
       if (it.poster) return it.poster;
-      return cdn(it.guid, "thumbnail.jpg");
+      return it.yt ? ytThumb(it.yt) : cdn(it.guid, "thumbnail.jpg");
     };
     const previewOf = (it) => cdn(it.guid, "play_480p.mp4");
 
@@ -92,7 +93,7 @@
     const reel = initReel(C.reel.filter((s) => !s.hidden && (s.type === "photo" || (s.guid && !s.pending))), cdn);
 
     // Portfólio ----------------------------------------------------------
-    const items = C.videos.filter((v) => !v.hidden && !v.pending && v.guid);
+    const items = C.videos.filter((v) => !v.hidden && !v.pending && (v.guid || v.yt));
     const cats = C.categories.filter((c) => !c.hidden && items.some((v) => v.cat === c.id));
     const catLabel = Object.fromEntries(C.categories.map((c) => [c.id, c.label]));
     const byCat = Object.fromEntries(cats.map((c) => [c.id, items.filter((i) => i.cat === c.id)]));
@@ -105,15 +106,17 @@
 
     const arrowSvg = (d) => `<svg viewBox="0 0 24 24"><path d="${d}" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
     const playSvg = `<svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg>`;
+    const ytSvg = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.6 15.1V8.9l5.8 3.1-5.8 3.1z"/></svg>`;
 
     const cardHTML = (it) => `
       <article class="card${it.w > it.h ? " card--h" : ""}" tabindex="0" role="button" aria-label="Assistir vídeo ${byCat[it.cat].indexOf(it) + 1} de ${esc(catLabel[it.cat])}" data-idx="${items.indexOf(it)}" style="--ar:${it.w} / ${it.h}">
-        <img src="${esc(posterOf(it))}" alt="" loading="lazy" decoding="async" draggable="false">
+        <img src="${esc(posterOf(it))}" alt="" loading="lazy" decoding="async" draggable="false"${it.yt && !it.poster ? ` onerror="this.onerror=null;this.src='${ytThumb(it.yt, "hqdefault")}'"` : ""}>
         <div class="card__top">
-          <span class="badge">${ratioLabel(it.w, it.h)}</span>
-          <span class="card__badges">${it.ia ? '<span class="badge badge--ia">IA</span>' : ""}<span class="badge">${fmtDur(it.dur)}</span></span>
+          <span class="badge${it.yt ? " badge--yt" : ""}">${it.yt ? `${ytSvg}YouTube` : ratioLabel(it.w, it.h)}</span>
+          <span class="card__badges">${it.ia ? '<span class="badge badge--ia">IA</span>' : ""}${it.dur ? `<span class="badge">${fmtDur(it.dur)}</span>` : ""}</span>
         </div>
         <span class="card__play">${playSvg}</span>
+        ${it.yt && it.channel ? `<span class="card__channel">${esc(it.channel)}</span>` : ""}
         <span class="card__bar"></span>
       </article>`;
 
@@ -206,6 +209,7 @@
       if (previewCard === card) return;
       stopPreview();
       const it = items[card.dataset.idx];
+      if (it.yt) return; // vídeo do YouTube: sem prévia, abre no player ao clicar
       let v = $("video", card);
       if (!v) {
         v = document.createElement("video");
@@ -240,6 +244,8 @@
     // Player em tela cheia: HLS do Bunny (qualidade se adapta à internet de quem assiste)
     const lb = $("[data-lightbox]");
     const lbVideo = $("[data-lb-video]");
+    const lbYt = $("[data-lb-yt]");
+    const lbLinks = $("[data-lb-links]");
     let list = [], pos = 0, lastFocus = null, hls = null, hlsLoad = null;
     const nativeHls = lbVideo.canPlayType("application/vnd.apple.mpegurl");
     const getHls = () => hlsLoad || (hlsLoad = new Promise((ok, fail) => {
@@ -252,9 +258,20 @@
       pos = (i + list.length) % list.length;
       const it = list[pos];
       if (hls) { hls.destroy(); hls = null; }
+      $("[data-lb-cat]").textContent = `${catLabel[it.cat]}${it.ia ? " · Criado com IA" : ""}${it.yt && it.channel ? ` · ${it.channel}` : ""}`;
+      lbYt.innerHTML = "";
+      lbLinks.innerHTML = "";
+      lbYt.hidden = !it.yt;
+      lbVideo.hidden = !!it.yt;
+      if (it.yt) {
+        // Vídeo longo do YouTube: toca aqui mesmo, com atalhos pro canal e pro vídeo
+        lbVideo.pause(); lbVideo.removeAttribute("src"); lbVideo.load();
+        lbYt.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${it.yt}?autoplay=1&rel=0&playsinline=1" title="Vídeo do YouTube" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+        lbLinks.innerHTML = `${it.channelUrl ? `<a class="btn btn--ghost btn--sm" href="${esc(it.channelUrl)}" target="_blank" rel="noopener">Ver o canal ↗</a>` : ""}<a class="btn btn--ghost btn--sm" href="https://www.youtube.com/watch?v=${it.yt}" target="_blank" rel="noopener">Abrir no YouTube ↗</a>`;
+        return;
+      }
       lbVideo.poster = posterOf(it);
       lbVideo.style.aspectRatio = `${it.w} / ${it.h}`;
-      $("[data-lb-cat]").textContent = `${catLabel[it.cat]}${it.ia ? " · Criado com IA" : ""}`;
       if (nativeHls) lbVideo.src = cdn(it.guid, "playlist.m3u8");
       else {
         try {
@@ -289,6 +306,7 @@
         lb.hidden = true;
         if (hls) { hls.destroy(); hls = null; }
         lbVideo.removeAttribute("src"); lbVideo.load();
+        lbYt.innerHTML = "";
       }, 300);
       if (lastFocus) lastFocus.focus({ preventScroll: true });
       reel && reel.resume();

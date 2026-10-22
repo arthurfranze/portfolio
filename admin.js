@@ -26,8 +26,11 @@
     if (localCovers.has(it.id)) return localCovers.get(it.id);
     if (it.poster && it.poster.startsWith("bunny:")) return cdn(it.guid, it.poster.slice(6));
     if (it.poster) return it.poster;
+    if (it.yt) return ytThumb(it.yt);
     return it.guid ? cdn(it.guid, "thumbnail.jpg") : "";
   };
+  const ytThumb = (id, q = "maxresdefault") => `https://i.ytimg.com/vi/${id}/${q}.jpg`;
+  const parseDur = (t) => String(t).trim().split(":").reduce((a, n) => a * 60 + (Number(n) || 0), 0);
 
   // API -------------------------------------------------------------------
   async function api(url, opts = {}) {
@@ -152,13 +155,14 @@
   // Portfólio -------------------------------------------------------------
   const tileHTML = (it) => `
     <div class="tile${it.hidden ? " is-hidden" : ""}" data-id="${esc(it.id)}" style="--ar:${it.w || 9} / ${it.h || 16}" tabindex="0">
-      <img src="${esc(posterOf(it))}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+      <img src="${esc(posterOf(it))}" alt="" loading="lazy" onerror="${it.yt && !it.poster ? `this.onerror=null;this.src='${ytThumb(it.yt, "hqdefault")}'` : "this.style.visibility='hidden'"}">
       <div class="tile__badges">
+        ${it.yt ? '<span class="badge badge--yt">YOUTUBE</span>' : ""}
         ${it.ia ? '<span class="badge badge--ia">IA</span>' : ""}
         ${it.hidden ? '<span class="badge">OCULTO</span>' : ""}
         ${it.pending ? `<span class="badge badge--proc" data-proc="${esc(it.id)}">PROCESSANDO</span>` : ""}
         ${it.error ? '<span class="badge badge--warn">ERRO</span>' : ""}
-        <span class="badge">${fmtDur(it.dur)}</span>
+        ${it.dur ? `<span class="badge">${fmtDur(it.dur)}</span>` : ""}
       </div>
       <div class="tile__actions">
         <button data-act="ia" class="${it.ia ? "is-on" : ""}" title="Selo de IA">IA</button>
@@ -185,6 +189,7 @@
         <div class="grid" data-grid="${esc(c.id)}">
           ${vids.map(tileHTML).join("")}
           <label class="tile tile--add" data-add-to="${esc(c.id)}"><span><b>+</b>Adicionar vídeos</span><input type="file" accept="video/*" multiple hidden></label>
+          <button class="tile tile--add tile--yt" data-yt-to="${esc(c.id)}"><span><b>+</b>Link do YouTube</span></button>
         </div>
       </section>`;
     }).join("");
@@ -228,6 +233,8 @@
       if (act.dataset.act === "edit") openEditor(v, "video");
       return;
     }
+    const ytBtn = e.target.closest("[data-yt-to]");
+    if (ytBtn) return addYoutube(ytBtn.dataset.ytTo);
     const catBtn = e.target.closest("[data-cat-act]");
     if (catBtn) {
       const id = catBtn.closest("[data-cat]").dataset.cat;
@@ -338,10 +345,14 @@
   // Editor de vídeo (capa, categoria, selo, apagar) -------------------------
   const modal = $("[data-modal]");
   const mVideo = $("[data-m-video]");
+  const mYt = $("[data-m-yt]");
   let editing = null;
 
   async function openEditor(it, kind) {
     editing = { it, kind };
+    mVideo.hidden = !!it.yt;
+    mYt.hidden = !it.yt;
+    mYt.innerHTML = it.yt ? `<iframe src="https://www.youtube-nocookie.com/embed/${it.yt}?rel=0" title="Vídeo do YouTube" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>` : "";
     mVideo.poster = posterOf(it);
     mVideo.src = it.guid ? cdn(it.guid, "play_720p.mp4") : "";
     mVideo.style.aspectRatio = `${it.w || 9} / ${it.h || 16}`;
@@ -354,6 +365,7 @@
     modal.hidden = true;
     document.body.classList.remove("is-locked");
     mVideo.pause(); mVideo.removeAttribute("src"); mVideo.load();
+    mYt.innerHTML = "";
     editing = null;
     renderPortfolio(); renderReel();
   }
@@ -374,18 +386,25 @@
         </label>
         <label class="check"><input type="checkbox" data-e="ia"${it.ia ? " checked" : ""}><span>Mostrar o selo <b>IA</b> (feito com inteligência artificial)</span></label>` : ""}
       <label class="check"><input type="checkbox" data-e="hidden"${it.hidden ? " checked" : ""}><span>Ocultar do site</span></label>
+      ${it.yt ? `
+        <label class="field"><span>Nome do canal</span><input data-e="channel" value="${esc(it.channel || "")}"><small>Aparece no card. Deixe em branco para esconder.</small></label>
+        <label class="field"><span>Duração</span><input data-e="dur" value="${it.dur ? fmtDur(it.dur) : ""}" placeholder="ex.: 25:40"><small>Minutos:segundos. Deixe em branco para esconder.</small></label>
+        <div class="btns"><a class="btn btn--ghost btn--sm" href="https://www.youtube.com/watch?v=${it.yt}" target="_blank" rel="noopener">Abrir no YouTube ↗</a></div>` : ""}
       <div class="field"><span>Capa</span>
-        <div class="cover-now" style="${ar}"><img src="${esc(posterOf(it))}" alt=""><small>Capa atual. Escolha outra abaixo, use o frame que está pausado no vídeo ou envie uma imagem.</small></div>
+        <div class="cover-now" style="${ar}"><img src="${esc(posterOf(it))}" alt=""><small>${it.yt ? "Capa atual. Escolha outra abaixo ou envie uma imagem." : "Capa atual. Escolha outra abaixo, use o frame que está pausado no vídeo ou envie uma imagem."}</small></div>
       </div>
       <div class="btns">
-        <button class="btn btn--ghost btn--sm" data-e="frame">Usar o frame atual do vídeo</button>
+        ${it.yt ? "" : '<button class="btn btn--ghost btn--sm" data-e="frame">Usar o frame atual do vídeo</button>'}
         <label class="btn btn--ghost btn--sm">Enviar imagem…<input type="file" accept="image/*" hidden data-e="file"></label>
       </div>
+      ${it.yt ? `<div class="field"><span>Capas do YouTube</span><div class="thumbs" style="--ar: 16 / 9">
+        ${["maxresdefault", "sddefault", "hqdefault"].map((q, i) => `<button data-ytthumb="${i ? ytThumb(it.yt, q) : ""}" aria-pressed="${(it.poster || "") === (i ? ytThumb(it.yt, q) : "")}" title="Usar esta capa"><img src="${esc(ytThumb(it.yt, q))}" alt="" loading="lazy" onerror="this.parentElement.remove()"></button>`).join("")}
+      </div></div>` : ""}
       ${thumbs.length ? `<div class="field"><span>Capas automáticas</span><div class="thumbs" style="${ar}">
         ${thumbs.map((t) => `<button data-thumb="${t}" aria-pressed="${current === "bunny:" + t}" title="Usar esta capa"><img src="${esc(cdn(it.guid, t))}" alt="" loading="lazy" onerror="this.parentElement.remove()"></button>`).join("")}
       </div></div>` : ""}
       <div class="btns" style="margin-top:8px">
-        <button class="btn btn--danger btn--sm" data-e="delete">Apagar vídeo</button>
+        <button class="btn btn--danger btn--sm" data-e="delete">${it.yt ? "Remover do portfólio" : "Apagar vídeo"}</button>
       </div>`;
   }
 
@@ -395,6 +414,8 @@
     if (k === "cat") { it.cat = e.target.value; markDirty(); }
     if (k === "ia") { it.ia = e.target.checked; markDirty(); }
     if (k === "hidden") { it.hidden = e.target.checked; markDirty(); }
+    if (k === "channel") { it.channel = e.target.value.trim(); markDirty(); }
+    if (k === "dur") { it.dur = parseDur(e.target.value); markDirty(); }
     if (k === "file" && e.target.files[0]) {
       const blob = await shrinkImage(e.target.files[0], 1080);
       await setCustomCover(it, blob);
@@ -402,6 +423,14 @@
   });
   $("[data-m-side]").addEventListener("click", async (e) => {
     const { it, kind } = editing;
+    const ytb = e.target.closest("[data-ytthumb]");
+    if (ytb) {
+      it.poster = ytb.dataset.ytthumb || null;
+      localCovers.delete(it.id);
+      markDirty();
+      renderEditor(0);
+      return;
+    }
     const thumb = e.target.closest("[data-thumb]");
     if (thumb) {
       it.poster = `bunny:${thumb.dataset.thumb}`;
@@ -423,7 +452,9 @@
     }
     if (k === "delete") {
       const where = kind === "reel" ? "da roleta do topo" : "do portfólio";
-      if (!confirm(`Apagar este vídeo ${where}? O arquivo também será apagado do Bunny e não dá para desfazer.`)) return;
+      const msg = it.yt ? "Remover este vídeo do portfólio? Ele continua normalmente no YouTube."
+        : `Apagar este vídeo ${where}? O arquivo também será apagado do Bunny e não dá para desfazer.`;
+      if (!confirm(msg)) return;
       if (kind === "reel") {
         if (C.reel.filter((x) => !x.hidden && x !== it).length < 1) return toast("A roleta precisa ter pelo menos um item visível.", true);
         C.reel = C.reel.filter((x) => x !== it);
@@ -620,6 +651,21 @@
         uploadsActive.delete(key);
       }
     }
+  }
+
+  // Vídeos longos entram como link do YouTube (tocam no site pelo player do YouTube)
+  async function addYoutube(cat) {
+    const url = prompt("Cole o link do vídeo no YouTube:");
+    if (!url || !url.trim()) return;
+    try {
+      toast("Buscando o vídeo no YouTube…");
+      const y = await api(`/api/youtube?url=${encodeURIComponent(url.trim())}`);
+      if (C.videos.some((v) => v.yt === y.id)) return toast("Esse vídeo já está no portfólio.", true);
+      C.videos.push({ id: `yt-${y.id}`, yt: y.id, cat, ia: false, w: 16, h: 9, dur: y.dur, title: y.title, channel: y.channel, channelUrl: y.channelUrl, poster: null, hidden: false });
+      renderPortfolio();
+      await save(`Painel: novo vídeo do YouTube ${y.title}`);
+      toast(y.dur ? "Vídeo do YouTube adicionado." : "Adicionado. Não achei a duração, dá para digitar no lápis do vídeo.");
+    } catch (ex) { toast(ex.message, true); }
   }
 
   // Acompanha os vídeos que o Bunny ainda está convertendo

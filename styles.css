@@ -235,6 +235,9 @@ main, .nav, .footer { position: relative; z-index: 1; }
 
 .card__top { position: absolute; z-index: 3; top: 14px; left: 14px; right: 14px; display: flex; justify-content: space-between; align-items: center; gap: 6px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; }
 .badge { padding: 4px 8px; border-radius: 6px; background: rgba(7, 12, 22, .55); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: rgba(233, 237, 243, .85); border: 1px solid rgba(255, 255, 255, .08); }
+.badge--yt { display: inline-flex; align-items: center; gap: 5px; background: #ff0033; color: #fff; border-color: transparent; }
+.badge--yt svg { width: 13px; height: 13px; fill: currentColor; }
+.card__channel { position: absolute; z-index: 3; left: 14px; right: 14px; bottom: 14px; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: rgba(233, 237, 243, .92); text-shadow: 0 1px 10px rgba(0, 0, 0, .85); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .badge--ia { background: var(--accent); color: var(--accent-ink); border-color: transparent; font-weight: 500; }
 .card__badges { display: flex; gap: 6px; }
 .card__play { position: absolute; z-index: 3; top: 50%; left: 50%; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%; display: grid; place-items: center; background: rgba(233, 237, 243, .14); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, .25); opacity: 0; transform: scale(.8); transition: opacity .4s, transform .5s var(--ease); }
@@ -277,6 +280,9 @@ main, .nav, .footer { position: relative; z-index: 1; }
 .lightbox.is-open .lightbox__stage { transform: none; }
 .lightbox video { border-radius: 14px; background: #000; max-height: calc(100svh - 150px); max-width: min(100%, 1280px); width: auto; height: auto; box-shadow: 0 40px 120px -40px #000; }
 .lightbox__meta { text-align: center; }
+.lightbox__yt { width: min(1280px, calc(100vw - 180px), calc((100svh - 190px) * 16 / 9)); aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden; background: #000; box-shadow: 0 40px 120px -40px #000; }
+.lightbox__yt iframe { width: 100%; height: 100%; border: 0; display: block; }
+.lightbox__links { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
 .lightbox__cat { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
 .lightbox__close { position: absolute; top: 18px; right: 18px; width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--line-strong); font-size: 18px; z-index: 2; transition: background .2s; }
 .lightbox__close:hover { background: rgba(255, 255, 255, .1); }
@@ -320,6 +326,7 @@ main, .nav, .footer { position: relative; z-index: 1; }
   .lightbox__nav--prev { left: 16px; }
   .lightbox__nav--next { right: 16px; }
   .lightbox video { max-height: calc(100svh - 190px); }
+  .lightbox__yt { width: calc(100vw - 24px); }
   .lightbox__meta { padding: 0 60px; }
 }
 @media (max-width: 560px) {
