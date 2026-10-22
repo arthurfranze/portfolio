@@ -722,10 +722,10 @@
    "guid": "06d5fc33-b266-4b63-969b-399972248a22",
    "w": 1920,
    "h": 1080,
-   "dur": 78,
+   "dur": 77,
    "poster": null,
    "hidden": false,
-   "pending": true,
+   "pending": false,
    "cat": "youtube",
    "ia": false
   }
