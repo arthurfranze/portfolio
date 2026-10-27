@@ -27,30 +27,31 @@
  "services": [
   {
    "title": "Captação profissional",
-   "text": "Vou até você com câmera, áudio e iluminação profissionais. Também capto imagens aéreas com drone.",
+   "text": "",
    "tags": [
     "Câmera",
     "Áudio",
-    "Luz",
+    "Iluminação",
     "Drone"
    ]
   },
   {
    "title": "Edição profissional",
-   "text": "Reels, anúncios, YouTube e institucionais com ritmo, legenda e tratamento de cor.",
+   "text": "",
    "tags": [
     "Reels",
     "Anúncios",
     "YouTube",
-    "Color"
+    "Institucional"
    ]
   },
   {
    "title": "Audiovisual com IA",
-   "text": "Vídeos de imóveis, produtos e institucionais de empresas criados com inteligência artificial, sem precisar montar um set.",
+   "text": "",
    "tags": [
     "Imobiliário",
-    "E-commerce",
+    "Produto",
+    "Serviço",
     "Diversos"
    ]
   }
