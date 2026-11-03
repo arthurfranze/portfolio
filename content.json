@@ -785,6 +785,18 @@
    "channelUrl": "https://www.youtube.com/@cecipedersoli",
    "poster": null,
    "hidden": false
+  },
+  {
+   "id": "bruna-hara-bruno-bilk-auxilio-reclusao-01",
+   "guid": "17f4a32e-104c-4d2e-8f4b-c9fe8054c07c",
+   "w": 1080,
+   "h": 1920,
+   "dur": 127,
+   "poster": null,
+   "hidden": false,
+   "pending": true,
+   "cat": "social",
+   "ia": false
   }
  ]
 }
