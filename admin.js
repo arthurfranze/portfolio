@@ -668,6 +668,20 @@
     } catch (ex) { toast(ex.message, true); }
   }
 
+  // O site toca playlist.m3u8 (lightbox), play_480p.mp4 (prévia) e play_720p.mp4 (reel).
+  // Se esses arquivos já respondem no CDN, o vídeo está pronto, mesmo que a API do Bunny ainda mostre um status antigo.
+  async function cdnReady(guid) {
+    try {
+      const pl = await fetch(cdn(guid, "playlist.m3u8"), { cache: "no-store" });
+      if (!pl.ok || !(await pl.text()).includes("#EXT-X-STREAM-INF")) return false;
+      for (const f of ["play_480p.mp4", "play_720p.mp4"]) {
+        const r = await fetch(cdn(guid, f), { cache: "no-store", headers: { Range: "bytes=0-0" } });
+        if (!(r.ok || r.status === 206)) return false;
+      }
+      return true;
+    } catch (e) { return false; }
+  }
+
   // Acompanha os vídeos que o Bunny ainda está convertendo
   let polling = false;
   async function pollPending() {
@@ -682,13 +696,15 @@
           try {
             const s = await api(`/api/video?guid=${it.guid}`);
             const badge = $(`[data-proc="${CSS.escape(it.id)}"]`);
-            if (badge && s.status < 4) badge.textContent = `PROCESSANDO ${s.progress || 0}%`;
-            if (s.status === 4) {
+            // 0-1: arquivo chegou e espera vaga no Bunny · 2-3: convertendo (o Bunny só informa % na conversão)
+            if (badge && s.status !== 4) badge.textContent = s.status <= 1 && !s.progress ? "NA FILA DO BUNNY" : `PROCESSANDO ${s.progress || 0}%`;
+            const failed = s.status === 5 || s.status === 6;
+            if (s.status === 4 || (!failed && (await cdnReady(it.guid)))) {
               it.pending = false;
               if (s.w && s.h) { it.w = s.w; it.h = s.h; }
               if (s.dur) it.dur = s.dur;
               changed = true;
-            } else if (s.status >= 5) { it.pending = false; it.error = true; it.hidden = true; changed = true; }
+            } else if (failed) { it.pending = false; it.error = true; it.hidden = true; changed = true; }
           } catch (e) { /* tenta de novo na próxima volta */ }
         }
         if (changed) {

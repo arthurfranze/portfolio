@@ -10,8 +10,8 @@ export default async function handler(req, res) {
     const r = await bunny(`videos/${guid}`);
     if (!r.ok) return res.status(r.status === 404 ? 404 : 502).json({ error: `Bunny respondeu ${r.status}` });
     const v = await r.json();
-    // status do Bunny: 0 criado, 1 enviado, 2 processando, 3 convertendo, 4 pronto, 5 erro, 6 falha no envio
-    return res.status(200).json({ status: v.status, progress: v.encodeProgress, w: v.width, h: v.height, dur: Math.round(v.length || 0), thumbs: v.thumbnailCount || 0 });
+    // status do Bunny: 0 criado, 1 enviado, 2 processando, 3 convertendo, 4 pronto, 5 erro, 6 falha no envio, 7-8 JIT (segmentando / playlists prontas)
+    return res.status(200).json({ status: v.status, progress: v.encodeProgress, w: v.width, h: v.height, dur: Math.round(v.length || 0), thumbs: v.thumbnailCount || 0, res: v.availableResolutions || "" });
   }
   if (req.method === "DELETE") {
     const r = await bunny(`videos/${guid}`, { method: "DELETE" });
