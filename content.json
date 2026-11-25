@@ -147,6 +147,18 @@
    "hidden": false
   },
   {
+   "id": "iceblend-fitness-verao-v3-2",
+   "guid": "062f93f0-3ac4-4a9b-876c-210192b48e92",
+   "w": 1080,
+   "h": 1920,
+   "dur": 28,
+   "poster": "https://arthurfranze.github.io/portfolio/media/covers/iceblend-fitness-verao-v3-2-mww9tan3.jpg",
+   "hidden": false,
+   "pending": false,
+   "cat": "social",
+   "ia": false
+  },
+  {
    "id": "video-sensorial-lb-01",
    "guid": "dc96edd8-bb13-458b-b8b2-d57537a75fe8",
    "cat": "social",
@@ -823,18 +835,6 @@
    "channelUrl": "https://www.youtube.com/@cecipedersoli",
    "poster": null,
    "hidden": false
-  },
-  {
-   "id": "iceblend-fitness-verao-v3-2",
-   "guid": "062f93f0-3ac4-4a9b-876c-210192b48e92",
-   "w": 1080,
-   "h": 1920,
-   "dur": 28,
-   "poster": null,
-   "hidden": false,
-   "pending": false,
-   "cat": "social",
-   "ia": false
   }
  ]
 }
