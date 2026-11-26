@@ -839,6 +839,18 @@
    "channelUrl": "https://www.youtube.com/@cecipedersoli",
    "poster": null,
    "hidden": false
+  },
+  {
+   "id": "dra-bruna-hara-indulto-natalino-final",
+   "guid": "6adfae9d-33dc-43d9-bc37-3d5e7e658dca",
+   "w": 1080,
+   "h": 1920,
+   "dur": 65,
+   "poster": null,
+   "hidden": false,
+   "pending": true,
+   "cat": "social",
+   "ia": false
   }
  ]
 }
