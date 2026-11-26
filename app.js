@@ -63,6 +63,21 @@
         <ul class="tags">${s.tags.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>
       </article>`).join("");
 
+    // Celular: os cartões de serviço viram carrossel; os pontinhos mostram em qual está (o CSS esconde no computador)
+    const svc = $("[data-services]");
+    const svcDots = document.createElement("div");
+    svcDots.className = "services__dots";
+    svcDots.setAttribute("aria-hidden", "true");
+    svcDots.innerHTML = C.services.map(() => "<i></i>").join("");
+    svc.after(svcDots);
+    const markSvc = () => {
+      const n = C.services.length, max = svc.scrollWidth - svc.clientWidth;
+      const i = max > 0 ? Math.round((svc.scrollLeft / max) * (n - 1)) : 0;
+      $$("i", svcDots).forEach((d, j) => d.classList.toggle("is-on", j === i));
+    };
+    svc.addEventListener("scroll", markSvc, { passive: true });
+    markSvc();
+
     const ct = C.contact;
     const waHref = `https://wa.me/${ct.whatsapp}?text=${encodeURIComponent(ct.whatsappText)}`;
     $$("[data-wa]").forEach((a) => { a.href = waHref; a.target = "_blank"; a.rel = "noopener"; });
