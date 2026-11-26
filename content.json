@@ -156,7 +156,11 @@
    "hidden": false,
    "pending": false,
    "cat": "social",
-   "ia": false
+   "ia": false,
+   "cats": [
+    "social",
+    "ecom"
+   ]
   },
   {
    "id": "video-sensorial-lb-01",
