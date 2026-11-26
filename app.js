@@ -255,18 +255,109 @@
     const lbPlay = $("[data-lb-play]");
     const lbShare = $("[data-lb-share]");
     let list = [], pos = 0, lastFocus = null, hls = null, hlsLoad = null, listCat = null;
-    const nativeHls = lbVideo.canPlayType("application/vnd.apple.mpegurl");
+    // HLS nativo só no iPhone (sem MediaSource). Nos outros (inclusive o Chrome novo, que também toca HLS sozinho)
+    // usa o hls.js, que deixa escolher a qualidade inicial.
+    const nativeHls = lbVideo.canPlayType("application/vnd.apple.mpegurl") && !window.MediaSource;
     const getHls = () => hlsLoad || (hlsLoad = new Promise((ok, fail) => {
       const s = document.createElement("script");
       s.src = HLS_JS; s.onload = () => ok(window.Hls); s.onerror = fail;
       document.head.appendChild(s);
     }));
 
+    // Celular: controles próprios e discretos (os nativos demoram para sumir e cobrem o vídeo).
+    // Toque no vídeo pausa/continua; tempo, som e tela cheia aparecem por 1,5 s e somem sozinhos.
+    // No computador continua o player nativo.
+    const tp = finePointer ? null : initTouchPlayer();
+    function initTouchPlayer() {
+      const ico = {
+        play: '<svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg>',
+        on: '<svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path class="s" d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>',
+        off: '<svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path class="s" d="M17 9l5 6M22 9l-5 6"/></svg>',
+        fs: '<svg viewBox="0 0 24 24"><path class="s" d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>',
+      };
+      const box = document.createElement("div");
+      box.className = "lbv";
+      lbVideo.removeAttribute("controls");
+      lbVideo.before(box);
+      box.appendChild(lbVideo);
+      box.insertAdjacentHTML("beforeend", `
+        <button class="lbv__tap" aria-label="Pausar ou continuar"></button>
+        <span class="lbv__state" aria-hidden="true">${ico.play}</span>
+        <span class="lbv__spin" aria-hidden="true"></span>
+        <div class="lbv__ui">
+          <span class="lbv__time">0:00 / 0:00</span>
+          <button class="lbv__btn" data-v="mute" aria-label="Som"></button>
+          <button class="lbv__btn" data-v="fs" aria-label="Tela cheia">${ico.fs}</button>
+        </div>
+        <div class="lbv__seek" aria-hidden="true"><i></i></div>`);
+      const time = $(".lbv__time", box), fill = $(".lbv__seek i", box), seek = $(".lbv__seek", box), muteBtn = $('[data-v="mute"]', box);
+      const t = (s) => (isFinite(s) ? fmtDur(Math.floor(s)) : "0:00");
+      let hideT = 0, raf = 0;
+      const flashUI = (ms = 1500) => {
+        box.classList.add("is-ui");
+        clearTimeout(hideT);
+        if (!lbVideo.paused) hideT = setTimeout(() => box.classList.remove("is-ui"), ms);
+      };
+      const draw = () => {
+        const d = lbVideo.duration;
+        fill.style.width = d ? `${(lbVideo.currentTime / d) * 100}%` : "0%";
+        time.textContent = `${t(lbVideo.currentTime)} / ${t(d)}`;
+      };
+      const loop = () => { draw(); raf = lbVideo.paused ? 0 : requestAnimationFrame(loop); };
+      const renderMute = () => { muteBtn.innerHTML = lbVideo.muted ? ico.off : ico.on; };
+      lbVideo.addEventListener("play", () => { box.classList.remove("is-paused"); if (box.classList.contains("is-ui")) flashUI(); if (!raf) loop(); });
+      lbVideo.addEventListener("pause", () => { box.classList.add("is-paused", "is-ui"); clearTimeout(hideT); draw(); });
+      lbVideo.addEventListener("waiting", () => box.classList.add("is-loading"));
+      ["playing", "canplay", "pause", "emptied"].forEach((ev) => lbVideo.addEventListener(ev, () => box.classList.remove("is-loading")));
+      lbVideo.addEventListener("loadedmetadata", draw);
+      lbVideo.addEventListener("volumechange", renderMute);
+      renderMute();
+      $(".lbv__tap", box).addEventListener("click", () => {
+        if (lbVideo.paused) lbVideo.play().catch(() => {});
+        else lbVideo.pause();
+      });
+      muteBtn.addEventListener("click", () => { lbVideo.muted = !lbVideo.muted; flashUI(); });
+      $('[data-v="fs"]', box).addEventListener("click", async () => {
+        try {
+          if (document.fullscreenElement) await document.exitFullscreen();
+          else if (box.requestFullscreen) {
+            await box.requestFullscreen();
+            // vídeo deitado: gira a tela sozinho
+            if (lbVideo.videoWidth > lbVideo.videoHeight && screen.orientation && screen.orientation.lock) screen.orientation.lock("landscape").catch(() => {});
+          } else if (lbVideo.webkitEnterFullscreen) lbVideo.webkitEnterFullscreen(); // iPhone: tela cheia do próprio sistema
+        } catch (e) { if (lbVideo.webkitEnterFullscreen) lbVideo.webkitEnterFullscreen(); }
+        if (lbVideo.paused) lbVideo.play().catch(() => {});
+        flashUI();
+      });
+      document.addEventListener("fullscreenchange", () => {
+        if (!document.fullscreenElement && screen.orientation && screen.orientation.unlock) try { screen.orientation.unlock(); } catch (e) { /* ok */ }
+      });
+      // Arrastar na barrinha adianta/volta
+      const seekTo = (x) => {
+        const r = seek.getBoundingClientRect();
+        if (lbVideo.duration) lbVideo.currentTime = Math.min(1, Math.max(0, (x - r.left) / r.width)) * lbVideo.duration;
+        draw();
+      };
+      seek.addEventListener("pointerdown", (e) => { seek.setPointerCapture(e.pointerId); box.classList.add("is-seeking"); seekTo(e.clientX); flashUI(); });
+      seek.addEventListener("pointermove", (e) => { if (seek.hasPointerCapture(e.pointerId)) seekTo(e.clientX); });
+      const endSeek = () => { box.classList.remove("is-seeking"); flashUI(); };
+      seek.addEventListener("pointerup", endSeek);
+      seek.addEventListener("pointercancel", endSeek);
+      return {
+        box,
+        // trocou de vídeo: tela limpa, só a barrinha
+        reset() { clearTimeout(hideT); box.classList.remove("is-ui", "is-paused", "is-loading"); fill.style.width = "0%"; time.textContent = "0:00 / 0:00"; },
+        // o navegador barrou o play automático: mostra o botão de play no meio
+        blocked() { box.classList.add("is-paused", "is-ui"); },
+      };
+    }
+
     async function show(i) {
       pos = (i + list.length) % list.length;
       const it = list[pos];
       if (hls) { hls.destroy(); hls = null; }
       lbPlay.hidden = true;
+      if (tp) tp.reset();
       $$("[data-lb-prev], [data-lb-next]").forEach((b) => (b.hidden = list.length < 2));
       if (canRoute) history.replaceState(null, "", `/v/${encodeURIComponent(it.id)}`);
       lbShare.textContent = "Compartilhar";
@@ -274,7 +365,8 @@
       lbYt.innerHTML = "";
       lbLinks.innerHTML = "";
       lbYt.hidden = !it.yt;
-      lbVideo.hidden = !!it.yt;
+      if (tp) tp.box.hidden = !!it.yt;
+      else lbVideo.hidden = !!it.yt;
       if (it.yt) {
         // Vídeo longo do YouTube: toca aqui mesmo, com atalhos pro canal e pro vídeo
         lbVideo.pause(); lbVideo.removeAttribute("src"); lbVideo.load();
@@ -283,21 +375,31 @@
         return;
       }
       lbVideo.poster = posterOf(it);
-      lbVideo.style.aspectRatio = `${it.w} / ${it.h}`;
+      lbVideo.style.setProperty("--ar", it.w && it.h ? (it.w / it.h).toFixed(4) : ".5625");
       if (nativeHls) lbVideo.src = cdn(it.guid, "playlist.m3u8");
       else {
         try {
           const Hls = await getHls();
           if (list[pos] !== it) return;
           if (Hls.isSupported()) {
-            hls = new Hls({ capLevelToPlayerSize: false, abrEwmaDefaultEstimate: 1e7 });
+            // Começa já em 720p (o Bunny lista o 240p primeiro e o vídeo abria borrado); depois se adapta à internet
+            hls = new Hls({ capLevelToPlayerSize: false, abrEwmaDefaultEstimate: 1e7, autoStartLoad: false });
+            const h = hls;
+            h.on(Hls.Events.MANIFEST_PARSED, (_, d) => {
+              const i = d.levels.findIndex((l) => Math.min(l.width || 0, l.height || 0) >= 720);
+              if (i >= 0) h.startLevel = i;
+              h.startLoad(-1);
+            });
             hls.loadSource(cdn(it.guid, "playlist.m3u8"));
             hls.attachMedia(lbVideo);
           } else lbVideo.src = cdn(it.guid, "play_720p.mp4");
         } catch (e) { lbVideo.src = cdn(it.guid, "play_720p.mp4"); }
       }
       // Sem um clique antes (ex.: quem chega pelo link), o navegador pode barrar o play com som: mostra o botão grande
-      lbVideo.play().catch(() => { if (list[pos] === it) lbPlay.hidden = false; });
+      lbVideo.play().catch(() => {
+        if (list[pos] !== it) return;
+        if (tp) tp.blocked(); else lbPlay.hidden = false;
+      });
     }
     function openLb(card) {
       const it = items[card.dataset.idx];
@@ -365,9 +467,10 @@
       if (e.key === "ArrowRight") show(pos + 1);
       if (e.key === "ArrowLeft") show(pos - 1);
     });
-    let sx = 0, sy = 0;
-    lb.addEventListener("touchstart", (e) => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+    let sx = 0, sy = 0, onSeek = false;
+    lb.addEventListener("touchstart", (e) => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; onSeek = !!e.target.closest(".lbv__seek"); }, { passive: true });
     lb.addEventListener("touchend", (e) => {
+      if (onSeek || document.fullscreenElement) return; // arrastando a barrinha ou em tela cheia: não troca nem fecha
       const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
       if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) show(pos + (dx < 0 ? 1 : -1));
       else if (dy > 110 && Math.abs(dy) > Math.abs(dx) * 1.5) closeLb();
@@ -399,6 +502,10 @@
     const dotsEl = $("[data-reel-dots]", root);
     const N = slides.length;
     const back = N >= 3 ? 1 : 0;
+    // No celular a roleta é plana (troca com fade): o cilindro 3D "dava zoom" ao rolar a página
+    const flatMQ = matchMedia("(max-width: 860px)");
+    let flat = flatMQ.matches;
+    root.classList.toggle("is-flat", flat);
     const mod = (a) => ((a % N) + N) % N;
 
     const faces = slides.map((s, j) => {
@@ -430,6 +537,7 @@
 
     function layout() {
       layoutK = k;
+      if (flat) { faces.forEach((f) => { f.style.transform = ""; }); return; }
       faces.forEach((f, j) => {
         const p = posAt(j, layoutK);
         const t = `rotateX(${p * STEP}deg) translateZ(${R}px)`;
@@ -440,6 +548,7 @@
       });
     }
     function rotate(animate) {
+      if (flat) { drum.style.transform = ""; return; }
       drum.classList.toggle("no-anim", !animate);
       drum.style.transform = `translateZ(${-R}px) rotateX(${-k * STEP}deg)`;
     }
@@ -573,6 +682,7 @@
 
     measure();
     addEventListener("resize", measure);
+    flatMQ.addEventListener("change", () => { flat = flatMQ.matches; root.classList.toggle("is-flat", flat); measure(); });
     activate();
     return { pause, resume };
   }

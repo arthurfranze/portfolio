@@ -98,6 +98,10 @@ label { display: block; }
 .tile__actions button { height: 28px; min-width: 28px; padding: 0 7px; border-radius: 8px; background: rgba(7, 12, 22, .82); border: 1px solid rgba(255, 255, 255, .14); font-family: var(--mono); font-size: 10.5px; display: grid; place-items: center; }
 .tile__actions button.is-on { background: var(--accent); color: var(--accent-ink); }
 .tile__actions svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+/* Vídeos do portfólio: 4 botões do mesmo tamanho que quebram em 2 linhas quando o card é estreito (vertical) */
+.tile__actions--video { left: 0; right: 0; bottom: 0; padding: 26px 6px 6px; flex-wrap: wrap; gap: 4px; background: linear-gradient(transparent, rgba(7, 12, 22, .85) 45%); }
+.tile__actions--video button { flex: 0 0 32px; width: 32px; height: 30px; min-width: 0; padding: 0; }
+.tile__actions--video button.is-main { background: var(--text); color: var(--bg); border-color: transparent; }
 .tile--add { cursor: pointer; aspect-ratio: 9 / 16; display: grid; place-items: center; text-align: center; border: 1px dashed var(--line-strong); background: transparent; color: var(--muted); font-size: 13px; padding: 10px; }
 .tile--add:hover { color: var(--text); border-color: var(--accent); }
 .tile--add b { display: block; font-size: 28px; font-weight: 400; line-height: 1; margin-bottom: 6px; }

@@ -278,8 +278,39 @@ main, .nav, .footer { position: relative; z-index: 1; }
 .lightbox.is-open { opacity: 1; }
 .lightbox__stage { position: relative; display: flex; flex-direction: column; align-items: center; gap: 16px; max-width: 100%; max-height: 100%; transform: scale(.96); transition: transform .5s var(--ease); }
 .lightbox.is-open .lightbox__stage { transform: none; }
-.lightbox video { border-radius: 14px; background: #000; max-height: calc(100svh - 150px); max-width: min(100%, 1280px); width: auto; height: auto; box-shadow: 0 40px 120px -40px #000; }
+/* Tamanho do vídeo vem da proporção dele (--ar = largura/altura), não da resolução que o HLS está tocando:
+   assim o player abre já no tamanho certo e não "cresce" quando a qualidade sobe. */
+.lightbox video {
+  --h: min(calc(100svh - 150px), calc(min(100vw - 200px, 1280px) / var(--ar, .5625)));
+  height: var(--h); width: calc(var(--h) * var(--ar, .5625)); max-width: none; object-fit: contain;
+  border-radius: 14px; background: #000; box-shadow: 0 40px 120px -40px #000;
+}
 .lightbox__meta { text-align: center; }
+
+/* Player no celular: controles próprios (o JS só monta isto em tela de toque) */
+.lbv { position: relative; border-radius: 14px; overflow: hidden; line-height: 0; box-shadow: 0 40px 120px -40px #000; -webkit-tap-highlight-color: transparent; }
+.lbv video { border-radius: 0; box-shadow: none; }
+.lbv__tap { position: absolute; inset: 0; z-index: 1; }
+.lbv__state { position: absolute; z-index: 2; left: 50%; top: 50%; width: 72px; height: 72px; margin: -36px 0 0 -36px; border-radius: 50%; display: grid; place-items: center; background: rgba(7, 12, 22, .5); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, .22); pointer-events: none; opacity: 0; transform: scale(.85); transition: opacity .2s, transform .25s var(--ease); }
+.lbv__state svg { width: 28px; height: 28px; fill: #fff; margin-left: 4px; }
+.lbv.is-paused .lbv__state { opacity: 1; transform: none; }
+.lbv__spin { position: absolute; z-index: 2; left: 50%; top: 50%; width: 36px; height: 36px; margin: -18px 0 0 -18px; border-radius: 50%; border: 2.5px solid rgba(255, 255, 255, .22); border-top-color: #fff; pointer-events: none; opacity: 0; transition: opacity .2s; animation: lbv-spin .8s linear infinite; }
+.lbv.is-loading:not(.is-paused) .lbv__spin { opacity: 1; transition-delay: .5s; }
+@keyframes lbv-spin { to { transform: rotate(360deg); } }
+.lbv__ui { position: absolute; z-index: 3; left: 0; right: 0; bottom: 0; display: flex; align-items: center; gap: 2px; padding: 36px 6px 18px 14px; background: linear-gradient(transparent, rgba(0, 0, 0, .55)); line-height: 1; opacity: 0; pointer-events: none; transition: opacity .3s; }
+.lbv.is-ui .lbv__ui { opacity: 1; pointer-events: auto; }
+.lbv__time { flex: 1; font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: rgba(255, 255, 255, .92); }
+.lbv__btn { width: 42px; height: 42px; display: grid; place-items: center; }
+.lbv__btn svg { width: 22px; height: 22px; fill: #fff; }
+.lbv__btn .s { fill: none; stroke: #fff; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.lbv__seek { position: absolute; z-index: 4; left: 0; right: 0; bottom: 0; height: 20px; touch-action: none; }
+.lbv__seek::before, .lbv__seek i { content: ""; position: absolute; left: 0; bottom: 0; height: 3px; transition: height .2s; }
+.lbv__seek::before { right: 0; background: rgba(255, 255, 255, .22); }
+.lbv__seek i { width: 0; background: var(--accent); }
+.lbv.is-ui .lbv__seek::before, .lbv.is-ui .lbv__seek i { height: 4px; }
+.lbv.is-seeking .lbv__seek::before, .lbv.is-seeking .lbv__seek i { height: 6px; }
+.lbv:fullscreen { border-radius: 0; background: #000; display: grid; place-items: center; }
+.lbv:fullscreen video { width: 100%; height: 100%; }
 .lightbox__yt { width: min(1280px, calc(100vw - 180px), calc((100svh - 190px) * 16 / 9)); aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden; background: #000; box-shadow: 0 40px 120px -40px #000; }
 .lightbox__yt iframe { width: 100%; height: 100%; border: 0; display: block; }
 .lightbox__links { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
@@ -298,7 +329,9 @@ main, .nav, .footer { position: relative; z-index: 1; }
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity 1s var(--ease), transform 1s var(--ease); transition-delay: var(--d, 0s); }
 .reveal.is-in { opacity: 1; transform: none; }
 
-/* Responsivo ------------------------------------------------------------ */
+/* Responsivo ------------------------------------------------------------
+   Tudo daqui pra baixo só vale para telas menores (tablet/celular).
+   O layout do computador fica nas regras de cima e não muda com o que estiver aqui. */
 @media (max-width: 1024px) {
   :root { --row-h: 420px; }
   .services { grid-template-columns: 1fr; }
@@ -309,7 +342,13 @@ main, .nav, .footer { position: relative; z-index: 1; }
   .hero { grid-template-columns: 1fr; padding-top: 84px; min-height: 0; gap: 0; }
   .hero__media { order: 1; }
   .hero__text { order: 2; margin-top: 8px; position: relative; }
-  .reel { --fh: min(122vw, 60svh); }
+  /* Celular: roleta plana com fade e altura pela largura da tela (não muda quando a barra do navegador some) */
+  .reel { --fh: min(118vw, 580px); }
+  .reel.is-flat { height: var(--fh); }
+  .reel.is-flat .reel__viewport { -webkit-mask-image: none; mask-image: none; perspective: none; }
+  .reel.is-flat .reel__face { opacity: 0; pointer-events: none; transition: opacity .7s var(--ease); }
+  .reel.is-flat .reel__face.is-active { opacity: 1; z-index: 1; pointer-events: auto; }
+  .reel.is-flat .reel__peek { display: none; }
   .reel__frame .frame__hud { left: 40px; right: 40px; }
   .hero__name { font-size: clamp(64px, 20vw, 120px); }
   .hero__name em { padding-left: .4em; }
@@ -330,7 +369,7 @@ main, .nav, .footer { position: relative; z-index: 1; }
   .lightbox__nav { position: absolute; bottom: 20px; z-index: 2; width: 48px; height: 48px; }
   .lightbox__nav--prev { left: 16px; }
   .lightbox__nav--next { right: 16px; }
-  .lightbox video { max-height: calc(100svh - 190px); }
+  .lightbox video { --h: min(calc(100svh - 190px), calc((100vw - 24px) / var(--ar, .5625))); }
   .lightbox__yt { width: calc(100vw - 24px); }
   .lightbox__meta { padding: 0 60px; }
 }

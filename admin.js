@@ -12,6 +12,7 @@
     trash: '<svg viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg>',
     up: '<svg viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg>',
     down: '<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>',
+    link: '<svg viewBox="0 0 24 24"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1"/></svg>',
   };
 
   let C = null; // conteúdo do site sendo editado
@@ -173,11 +174,11 @@
         ${it.error ? '<span class="badge badge--warn">ERRO</span>' : ""}
         ${it.dur ? `<span class="badge">${fmtDur(it.dur)}</span>` : ""}
       </div>
-      <div class="tile__actions">
-        <button data-act="ia" class="${it.ia ? "is-on" : ""}" title="Selo de IA">IA</button>
+      <div class="tile__actions tile__actions--video">
+        <button data-act="edit" class="is-main" title="Editar capa, categorias, link…">${ICON.edit}</button>
+        ${!it.pending && !it.error ? `<button data-act="link" title="Copiar o link deste vídeo">${ICON.link}</button>` : ""}
         <button data-act="hide" title="${it.hidden ? "Mostrar no site" : "Ocultar do site"}">${it.hidden ? ICON.eyeOff : ICON.eye}</button>
-        ${!it.pending && !it.error ? `<button data-act="link" title="Copiar o link deste vídeo">LINK</button>` : ""}
-        <button data-act="edit" title="Editar capa, categorias, link…">${ICON.edit}</button>
+        <button data-act="ia" class="${it.ia ? "is-on" : ""}" title="Selo de IA">IA</button>
       </div>
     </div>`;
 
