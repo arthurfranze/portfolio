@@ -113,12 +113,12 @@
  ],
  "videos": [
   {
-   "id": "bruna-hara-bruno-bilk-auxilio-reclusao-01",
-   "guid": "17f4a32e-104c-4d2e-8f4b-c9fe8054c07c",
+   "id": "dra-bruna-hara-indulto-natalino-final",
+   "guid": "6adfae9d-33dc-43d9-bc37-3d5e7e658dca",
    "w": 1080,
    "h": 1920,
-   "dur": 127,
-   "poster": "https://arthurfranze.github.io/portfolio/media/covers/bruna-hara-bruno-bilk-auxilio-reclusao-01-mw10ucmm.jpg",
+   "dur": 65,
+   "poster": "https://arthurfranze.github.io/portfolio/media/covers/dra-bruna-hara-indulto-natalino-final-mwxrwm5h.jpg",
    "hidden": false,
    "pending": false,
    "cat": "social",
@@ -161,6 +161,18 @@
     "social",
     "ecom"
    ]
+  },
+  {
+   "id": "bruna-hara-bruno-bilk-auxilio-reclusao-01",
+   "guid": "17f4a32e-104c-4d2e-8f4b-c9fe8054c07c",
+   "w": 1080,
+   "h": 1920,
+   "dur": 127,
+   "poster": "https://arthurfranze.github.io/portfolio/media/covers/bruna-hara-bruno-bilk-auxilio-reclusao-01-mw10ucmm.jpg",
+   "hidden": false,
+   "pending": false,
+   "cat": "social",
+   "ia": false
   },
   {
    "id": "video-sensorial-lb-01",
@@ -528,17 +540,6 @@
    "hidden": false
   },
   {
-   "id": "1-video-dia-dos-namorados-01",
-   "guid": "14652e14-7f72-4d2a-a04c-9d97e065ff65",
-   "cat": "social",
-   "ia": false,
-   "w": 2160,
-   "h": 3840,
-   "dur": 28,
-   "poster": "media/posters/1-video-dia-dos-namorados-01.webp",
-   "hidden": false
-  },
-  {
    "id": "aura-tambore-projeto-teste-01",
    "guid": "3f98e046-31cb-4e0d-bf71-6ece44907c09",
    "cat": "imob",
@@ -841,16 +842,15 @@
    "hidden": false
   },
   {
-   "id": "dra-bruna-hara-indulto-natalino-final",
-   "guid": "6adfae9d-33dc-43d9-bc37-3d5e7e658dca",
-   "w": 1080,
-   "h": 1920,
-   "dur": 65,
-   "poster": null,
-   "hidden": false,
-   "pending": false,
+   "id": "1-video-dia-dos-namorados-01",
+   "guid": "14652e14-7f72-4d2a-a04c-9d97e065ff65",
    "cat": "social",
-   "ia": false
+   "ia": false,
+   "w": 2160,
+   "h": 3840,
+   "dur": 28,
+   "poster": "media/posters/1-video-dia-dos-namorados-01.webp",
+   "hidden": false
   }
  ]
 }
