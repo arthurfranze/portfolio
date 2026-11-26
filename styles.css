@@ -143,6 +143,7 @@ main, .nav, .footer { position: relative; z-index: 1; }
 .reel__dots button[aria-current="true"] { height: 34px; background: var(--accent); }
 .reel__dots button::before { content: ""; position: absolute; inset: -6px -10px; }
 .reel__dots button { position: relative; }
+.reel__stories { display: none; } /* barrinhas estilo stories: só no celular */
 .frame__c { position: absolute; width: 22px; height: 22px; border-color: rgba(233, 237, 243, .7); border-style: solid; border-width: 0; }
 .frame__c--tl { top: 18px; left: 18px; border-top-width: 1.5px; border-left-width: 1.5px; }
 .frame__c--tr { top: 18px; right: 18px; border-top-width: 1.5px; border-right-width: 1.5px; }
@@ -340,15 +341,30 @@ main, .nav, .footer { position: relative; z-index: 1; }
 @media (max-width: 860px) {
   .nav__links { display: none; }
   .hero { grid-template-columns: 1fr; padding-top: 84px; min-height: 0; gap: 0; }
-  .hero__media { order: 1; }
-  .hero__text { order: 2; margin-top: 8px; position: relative; }
-  /* Celular: roleta plana com fade e altura pela largura da tela (não muda quando a barra do navegador some) */
-  .reel { --fh: min(118vw, 580px); }
+  /* Celular: mesma ordem de leitura do computador. Nome e textos primeiro, depois o vídeo (formato stories),
+     depois os números. Os filhos de .hero__text viram itens da grade para poder intercalar o vídeo. */
+  .hero__text { display: contents; }
+  .hero__name { order: 1; }
+  .hero__lead { order: 2; }
+  .hero__desc { order: 3; }
+  .hero__cta { order: 4; }
+  .hero__media { order: 5; margin-top: 40px; }
+  .stats { order: 6; margin-top: 36px; }
+  /* Roleta plana com fade, tamanho pela largura da tela (não muda quando a barra do navegador some) */
+  .reel { --fh: calc(min(62vw, 300px) * 16 / 9); }
   .reel.is-flat { height: var(--fh); }
   .reel.is-flat .reel__viewport { -webkit-mask-image: none; mask-image: none; perspective: none; }
   .reel.is-flat .reel__face { opacity: 0; pointer-events: none; transition: opacity .7s var(--ease); }
   .reel.is-flat .reel__face.is-active { opacity: 1; z-index: 1; pointer-events: auto; }
   .reel.is-flat .reel__peek { display: none; }
+  /* Formato stories: sem a moldura de câmera; barrinhas no topo; toque à direita avança, à esquerda volta */
+  .reel.is-flat .reel__face, .reel.is-flat .reel__frame { border-radius: 18px; }
+  .reel.is-flat .frame__c, .reel.is-flat .frame__hud, .reel.is-flat .reel__bar, .reel.is-flat .reel__dots { display: none; }
+  .reel.is-flat .reel__frame::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 64px; border-radius: 18px 18px 0 0; background: linear-gradient(rgba(0, 0, 0, .38), transparent); }
+  .reel.is-flat .reel__stories { display: flex; gap: 4px; position: absolute; top: 10px; left: 10px; right: 10px; }
+  .reel__stories i { flex: 1; height: 2.5px; border-radius: 2px; background: rgba(255, 255, 255, .32); overflow: hidden; position: relative; }
+  .reel__stories b { position: absolute; inset: 0 auto 0 0; width: 0; background: #fff; }
+  .reel.is-flat .reel__sound { right: 10px; bottom: 10px; height: 30px; padding: 0 10px; font-size: 9.5px; }
   .reel__frame .frame__hud { left: 40px; right: 40px; }
   .hero__name { font-size: clamp(64px, 20vw, 120px); }
   .hero__name em { padding-left: .4em; }

@@ -528,6 +528,13 @@
     const videoOf = (j) => $("video", faces[j]);
 
     dotsEl.innerHTML = slides.map((s, j) => `<button aria-label="Ir para o item ${j + 1}"></button>`).join("");
+    // Barrinhas estilo stories (o CSS só mostra no celular)
+    const stories = document.createElement("div");
+    stories.className = "reel__stories";
+    stories.setAttribute("aria-hidden", "true");
+    stories.innerHTML = slides.map(() => "<i><b></b></i>").join("");
+    $(".reel__frame", root).appendChild(stories);
+    const segs = $$("b", stories);
     if (N < 2) { dotsEl.hidden = true; $$(".reel__peek", root).forEach((b) => (b.hidden = true)); }
 
     let k = 0, layoutK = 0, R = 0;
@@ -570,6 +577,7 @@
       faces.forEach((f, i) => f.classList.toggle("is-active", i === j));
       $$("button", dotsEl).forEach((b, i) => b.setAttribute("aria-current", i === j));
       countEl.textContent = `${pad(j + 1)} / ${pad(N)}`;
+      segs.forEach((s, i) => (s.style.width = i < j ? "100%" : "0%"));
       const v = videoOf(j);
       soundBtn.hidden = !v;
       playBtn.hidden = true;
@@ -627,6 +635,8 @@
       const face = e.target.closest(".reel__face");
       if (!face) return;
       const j = faces.indexOf(face);
+      // Celular (stories): toque no terço da esquerda volta, no resto avança
+      if (flat) { const r = face.getBoundingClientRect(); return go(e.clientX - r.left < r.width / 3 ? -1 : 1); }
       if (j !== cur()) return goTo(j, Number(face.dataset.p) > k ? 1 : -1);
       if (videoOf(j)) toggleSound(); else go(1);
     });
@@ -651,17 +661,19 @@
     // HUD: timecode do vídeo (ou relógio na foto) e barra de progresso
     const t0 = performance.now();
     (function tick() {
-      const v = videoOf(cur());
-      let f;
+      const j = cur();
+      const v = videoOf(j);
+      let f, p = null;
       if (v) {
         f = Math.floor(v.currentTime * 30);
-        if (v.duration) bar.style.width = `${(v.currentTime / v.duration) * 100}%`;
+        if (v.duration) p = v.currentTime / v.duration;
         tc.textContent = `${pad(Math.floor(f / 108000))}:${pad(Math.floor(f / 1800) % 60)}:${pad(Math.floor(f / 30) % 60)}:${pad(f % 30)}`;
       } else {
         f = Math.floor(((performance.now() - t0) / 1000) * 24);
-        if (photoStart && !held && visible) bar.style.width = `${Math.min(100, ((performance.now() - photoStart) / PHOTO_MS) * 100)}%`;
+        if (photoStart && !held && visible) p = Math.min(1, (performance.now() - photoStart) / PHOTO_MS);
         tc.textContent = `${pad(Math.floor(f / 86400))}:${pad(Math.floor(f / 1440) % 60)}:${pad(Math.floor(f / 24) % 60)}:${pad(f % 24)}`;
       }
+      if (p != null) { bar.style.width = `${p * 100}%`; segs[j].style.width = `${p * 100}%`; }
       requestAnimationFrame(tick);
     })();
 
