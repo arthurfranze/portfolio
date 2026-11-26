@@ -41,6 +41,9 @@ export function requireAuth(req, res) {
 
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+// Um vídeo pode estar em várias categorias: "cats" (lista) quando tem mais de uma, "cat" é sempre a primeira
+export const catsOf = (v) => (Array.isArray(v.cats) && v.cats.length ? v.cats : [v.cat]);
+
 // GitHub: o content.json e as capas personalizadas ficam versionados no repositório
 function gh(path, init = {}) {
   return fetch(`https://api.github.com/repos/${REPO}/${path}`, {

@@ -20,6 +20,14 @@
   let saving = false;
   const localCovers = new Map(); // capas recém-enviadas (mostradas aqui antes de o GitHub publicar)
   const uploadsActive = new Set();
+  // Um vídeo pode estar em várias categorias: "cats" (lista) quando tem mais de uma, "cat" é sempre a primeira
+  const catsOf = (v) => (Array.isArray(v.cats) && v.cats.length ? v.cats : [v.cat]);
+  const setCats = (v, list) => {
+    const u = [...new Set(list.filter(Boolean))];
+    v.cat = u[0];
+    if (u.length > 1) v.cats = u; else delete v.cats;
+  };
+  const shareUrl = (it) => `${location.origin}/v/${encodeURIComponent(it.id)}`;
 
   const cdn = (guid, file) => `https://${C.bunnyCdn}/${guid}/${file}`;
   const posterOf = (it) => {
@@ -159,6 +167,7 @@
       <div class="tile__badges">
         ${it.yt ? '<span class="badge badge--yt">YOUTUBE</span>' : ""}
         ${it.ia ? '<span class="badge badge--ia">IA</span>' : ""}
+        ${catsOf(it).length > 1 ? `<span class="badge badge--multi" title="Também em: ${esc(catsOf(it).map((c) => (C.categories.find((x) => x.id === c) || {}).label).join(", "))}">${catsOf(it).length} CATEG.</span>` : ""}
         ${it.hidden ? '<span class="badge">OCULTO</span>' : ""}
         ${it.pending ? `<span class="badge badge--proc" data-proc="${esc(it.id)}">PROCESSANDO</span>` : ""}
         ${it.error ? '<span class="badge badge--warn">ERRO</span>' : ""}
@@ -167,14 +176,15 @@
       <div class="tile__actions">
         <button data-act="ia" class="${it.ia ? "is-on" : ""}" title="Selo de IA">IA</button>
         <button data-act="hide" title="${it.hidden ? "Mostrar no site" : "Ocultar do site"}">${it.hidden ? ICON.eyeOff : ICON.eye}</button>
-        <button data-act="edit" title="Editar capa, categoria…">${ICON.edit}</button>
+        ${!it.pending && !it.error ? `<button data-act="link" title="Copiar o link deste vídeo">LINK</button>` : ""}
+        <button data-act="edit" title="Editar capa, categorias, link…">${ICON.edit}</button>
       </div>
     </div>`;
 
   function renderPortfolio() {
     const wrap = $("[data-cats]");
     wrap.innerHTML = C.categories.map((c) => {
-      const vids = C.videos.filter((v) => v.cat === c.id);
+      const vids = C.videos.filter((v) => catsOf(v).includes(c.id));
       return `
       <section class="cat${c.hidden ? " is-hidden" : ""}" data-cat="${esc(c.id)}">
         <div class="cat__head">
@@ -206,21 +216,26 @@
     // Vídeos: arrastar dentro e entre categorias
     $$("[data-grid]", wrap).forEach((g) => new Sortable(g, {
       group: "videos", animation: 180, draggable: ".tile:not(.tile--add)", filter: ".tile__actions", preventOnFilter: false,
-      onEnd: () => { rebuildVideoOrder(); renderPortfolio(); markDirty(); },
+      onEnd: (ev) => { moveVideo(ev); renderPortfolio(); markDirty(); },
     }));
   }
 
-  function rebuildVideoOrder() {
-    const byId = new Map(C.videos.map((v) => [v.id, v]));
-    const ordered = [];
-    $$("[data-grid]").forEach((g) => $$(".tile[data-id]", g).forEach((t) => {
-      const v = byId.get(t.dataset.id);
-      if (!v) return;
-      v.cat = g.dataset.grid;
-      ordered.push(v);
-      byId.delete(v.id);
-    }));
-    C.videos = [...ordered, ...byId.values()];
+  // Arrastou um vídeo: troca de categoria (se mudou de grade) e aplica a nova ordem da grade de destino.
+  // Como um vídeo pode estar em mais de uma categoria, a ordem de cada grade é reposta nas posições que
+  // os vídeos dela já ocupavam na lista geral; as outras categorias não mudam.
+  function moveVideo(ev) {
+    const v = C.videos.find((x) => x.id === ev.item.dataset.id);
+    if (!v) return;
+    const from = ev.from.dataset.grid, to = ev.to.dataset.grid;
+    if (from !== to) setCats(v, catsOf(v).map((c) => (c === from ? to : c)));
+    const ids = $$(".tile[data-id]", ev.to).map((t) => t.dataset.id).filter((id, i, a) => a.indexOf(id) === i);
+    const slots = C.videos.map((x, i) => (catsOf(x).includes(to) ? i : -1)).filter((i) => i >= 0);
+    const byId = new Map(C.videos.map((x) => [x.id, x]));
+    const inOrder = ids.map((id) => byId.get(id)).filter((x) => x && catsOf(x).includes(to));
+    if (inOrder.length !== slots.length) return;
+    const next = C.videos.slice();
+    slots.forEach((slot, k) => { next[slot] = inOrder[k]; });
+    C.videos = next;
   }
 
   $("[data-cats]").addEventListener("click", (e) => {
@@ -231,6 +246,7 @@
       if (act.dataset.act === "ia") { v.ia = !v.ia; renderPortfolio(); markDirty(); }
       if (act.dataset.act === "hide") { v.hidden = !v.hidden; renderPortfolio(); markDirty(); }
       if (act.dataset.act === "edit") openEditor(v, "video");
+      if (act.dataset.act === "link") copyLink(v);
       return;
     }
     const ytBtn = e.target.closest("[data-yt-to]");
@@ -241,8 +257,9 @@
       const cat = C.categories.find((c) => c.id === id);
       if (catBtn.dataset.catAct === "hide") { cat.hidden = !cat.hidden; renderPortfolio(); markDirty(); }
       if (catBtn.dataset.catAct === "del") {
-        if (C.videos.some((v) => v.cat === id)) return toast("Mova ou apague os vídeos dessa categoria antes de apagá-la.", true);
+        if (C.videos.some((v) => catsOf(v).length === 1 && catsOf(v)[0] === id)) return toast("Mova ou apague os vídeos que só estão nessa categoria antes de apagá-la.", true);
         if (!confirm(`Apagar a categoria "${cat.label}"?`)) return;
+        C.videos.forEach((v) => { if (catsOf(v).includes(id)) setCats(v, catsOf(v).filter((c) => c !== id)); });
         C.categories = C.categories.filter((c) => c.id !== id);
         renderPortfolio(); markDirty();
       }
@@ -381,9 +398,15 @@
     $("[data-m-side]").innerHTML = `
       <h3>${kind === "reel" ? "Vídeo de apresentação" : "Editar vídeo"}</h3>
       ${kind === "video" ? `
-        <label class="field"><span>Categoria</span>
-          <select data-e="cat">${C.categories.map((c) => `<option value="${esc(c.id)}"${c.id === it.cat ? " selected" : ""}>${esc(c.label)}</option>`).join("")}</select>
-        </label>
+        <div class="field"><span>Categorias</span>
+          <div class="cat-checks">${C.categories.map((c) => `<label><input type="checkbox" data-e="cats" value="${esc(c.id)}"${catsOf(it).includes(c.id) ? " checked" : ""}>${esc(c.label)}</label>`).join("")}</div>
+          <small>Marque todas em que o vídeo deve aparecer. A primeira marcada é a principal.</small>
+        </div>
+        <label class="field"><span>Título</span><input data-e="title" value="${esc(it.title || "")}" placeholder="ex.: Anúncio do guarda-chuva · Mercado Livre"><small>Aparece na prévia do link compartilhado (WhatsApp, Upwork…). Opcional.</small></label>
+        ${!it.pending && !it.error ? `<div class="field"><span>Link para compartilhar</span>
+          <div class="share-row"><input readonly value="${esc(shareUrl(it))}" data-e="link-field"><button class="btn btn--ghost btn--sm" data-e="copy">Copiar</button><a class="btn btn--ghost btn--sm" href="${esc(shareUrl(it))}" target="_blank" rel="noopener">Abrir ↗</a></div>
+          <small>Abre o portfólio já tocando este vídeo em alta. Funciona mesmo com o vídeo oculto, como um "não listado". ${dirty ? "Salve as alterações antes de enviar." : ""}</small>
+        </div>` : ""}
         <label class="check"><input type="checkbox" data-e="ia"${it.ia ? " checked" : ""}><span>Mostrar o selo <b>IA</b> (feito com inteligência artificial)</span></label>` : ""}
       <label class="check"><input type="checkbox" data-e="hidden"${it.hidden ? " checked" : ""}><span>Ocultar do site</span></label>
       ${it.yt ? `
@@ -411,7 +434,14 @@
   $("[data-m-side]").addEventListener("change", async (e) => {
     const { it } = editing;
     const k = e.target.dataset.e;
-    if (k === "cat") { it.cat = e.target.value; markDirty(); }
+    if (k === "cats") {
+      const checked = $$('[data-e="cats"]:checked').map((x) => x.value);
+      if (!checked.length) { e.target.checked = true; return toast("O vídeo precisa ficar em pelo menos uma categoria.", true); }
+      // mantém a ordem que já existia e põe as novas no fim
+      setCats(it, [...catsOf(it).filter((c) => checked.includes(c)), ...checked.filter((c) => !catsOf(it).includes(c))]);
+      markDirty();
+    }
+    if (k === "title") { if (e.target.value.trim()) it.title = e.target.value.trim(); else if (!it.yt) delete it.title; markDirty(); }
     if (k === "ia") { it.ia = e.target.checked; markDirty(); }
     if (k === "hidden") { it.hidden = e.target.checked; markDirty(); }
     if (k === "channel") { it.channel = e.target.value.trim(); markDirty(); }
@@ -440,6 +470,8 @@
       return;
     }
     const k = e.target.closest("[data-e]")?.dataset.e;
+    if (k === "copy") return copyLink(it);
+    if (k === "link-field") return e.target.select();
     if (k === "frame") {
       if (!mVideo.videoWidth) return toast("Dê play no vídeo e pause no frame que você quer.", true);
       const cv = document.createElement("canvas");
@@ -464,6 +496,12 @@
       await save("Painel: apaga um vídeo");
     }
   });
+
+  async function copyLink(it) {
+    const url = shareUrl(it);
+    try { await navigator.clipboard.writeText(url); toast(dirty ? "Link copiado. Salve as alterações antes de enviar." : "Link do vídeo copiado."); }
+    catch (e) { prompt("Copie o link do vídeo:", url); }
+  }
 
   async function setCustomCover(it, blob) {
     try {

@@ -20,6 +20,12 @@
   const esc = (t) => String(t ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
   // Texto editável: *palavra* vira itálico de destaque e quebra de linha vira <br>
   const rich = (t) => esc(t).replace(/\*(.+?)\*/g, "<em>$1</em>").replace(/\n/g, "<br>");
+  // Um vídeo pode estar em várias categorias ("cats"); "cat" é sempre a primeira
+  const catsOf = (v) => (Array.isArray(v.cats) && v.cats.length ? v.cats : [v.cat]);
+  // Link próprio de cada vídeo: /v/<id> (no GitHub Pages não há essa rota, então o link aponta para a Vercel)
+  const SHARE_ORIGIN = location.hostname.endsWith("github.io") ? "https://arthur-franze.vercel.app" : location.origin;
+  const canRoute = !LOCAL && !location.hostname.endsWith("github.io");
+  const openId = window.__OPEN_VIDEO || (location.pathname.match(/^\/v\/([^/?#]+)/) || [])[1] || new URLSearchParams(location.search).get("v");
 
   async function loadContent() {
     for (const url of LOCAL ? ["content.json"] : ["/api/content", "content.json"]) {
@@ -94,9 +100,9 @@
 
     // Portfólio ----------------------------------------------------------
     const items = C.videos.filter((v) => !v.hidden && !v.pending && (v.guid || v.yt));
-    const cats = C.categories.filter((c) => !c.hidden && items.some((v) => v.cat === c.id));
+    const cats = C.categories.filter((c) => !c.hidden && items.some((v) => catsOf(v).includes(c.id)));
     const catLabel = Object.fromEntries(C.categories.map((c) => [c.id, c.label]));
-    const byCat = Object.fromEntries(cats.map((c) => [c.id, items.filter((i) => i.cat === c.id)]));
+    const byCat = Object.fromEntries(cats.map((c) => [c.id, items.filter((i) => catsOf(i).includes(c.id))]));
 
     const chipsEl = $("[data-chips]");
     const rowsEl = $("[data-rows]");
@@ -108,8 +114,8 @@
     const playSvg = `<svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg>`;
     const ytSvg = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.6 15.1V8.9l5.8 3.1-5.8 3.1z"/></svg>`;
 
-    const cardHTML = (it) => `
-      <article class="card${it.w > it.h ? " card--h" : ""}" tabindex="0" role="button" aria-label="Assistir vídeo ${byCat[it.cat].indexOf(it) + 1} de ${esc(catLabel[it.cat])}" data-idx="${items.indexOf(it)}" style="--ar:${it.w} / ${it.h}">
+    const cardHTML = (it, cat) => `
+      <article class="card${it.w > it.h ? " card--h" : ""}" tabindex="0" role="button" aria-label="Assistir vídeo ${byCat[cat].indexOf(it) + 1} de ${esc(catLabel[cat])}" data-idx="${items.indexOf(it)}" style="--ar:${it.w} / ${it.h}">
         <img src="${esc(posterOf(it))}" alt="" loading="lazy" decoding="async" draggable="false"${it.yt && !it.poster ? ` onerror="this.onerror=null;this.src='${ytThumb(it.yt, "hqdefault")}'"` : ""}>
         <div class="card__top">
           <span class="badge${it.yt ? " badge--yt" : ""}">${it.yt ? `${ytSvg}YouTube` : ratioLabel(it.w, it.h)}</span>
@@ -133,7 +139,7 @@
           </div>
         </div>
         <div class="track">
-          ${byCat[c.id].map(cardHTML).join("")}
+          ${byCat[c.id].map((it) => cardHTML(it, c.id)).join("")}
           <div class="card card--end" data-end>
             <b>Gostou?<br>Vamos fazer o seu.</b>
             <span>Me conta a sua ideia no WhatsApp.</span>
@@ -246,7 +252,9 @@
     const lbVideo = $("[data-lb-video]");
     const lbYt = $("[data-lb-yt]");
     const lbLinks = $("[data-lb-links]");
-    let list = [], pos = 0, lastFocus = null, hls = null, hlsLoad = null;
+    const lbPlay = $("[data-lb-play]");
+    const lbShare = $("[data-lb-share]");
+    let list = [], pos = 0, lastFocus = null, hls = null, hlsLoad = null, listCat = null;
     const nativeHls = lbVideo.canPlayType("application/vnd.apple.mpegurl");
     const getHls = () => hlsLoad || (hlsLoad = new Promise((ok, fail) => {
       const s = document.createElement("script");
@@ -258,7 +266,11 @@
       pos = (i + list.length) % list.length;
       const it = list[pos];
       if (hls) { hls.destroy(); hls = null; }
-      $("[data-lb-cat]").textContent = `${catLabel[it.cat]}${it.ia ? " · Criado com IA" : ""}${it.yt && it.channel ? ` · ${it.channel}` : ""}`;
+      lbPlay.hidden = true;
+      $$("[data-lb-prev], [data-lb-next]").forEach((b) => (b.hidden = list.length < 2));
+      if (canRoute) history.replaceState(null, "", `/v/${encodeURIComponent(it.id)}`);
+      lbShare.textContent = "Compartilhar";
+      $("[data-lb-cat]").textContent = `${catLabel[listCat || catsOf(it)[0]] || ""}${it.ia ? " · Criado com IA" : ""}${it.yt && it.channel ? ` · ${it.channel}` : ""}`;
       lbYt.innerHTML = "";
       lbLinks.innerHTML = "";
       lbYt.hidden = !it.yt;
@@ -278,20 +290,25 @@
           const Hls = await getHls();
           if (list[pos] !== it) return;
           if (Hls.isSupported()) {
-            hls = new Hls({ capLevelToPlayerSize: false, abrEwmaDefaultEstimate: 5e6 });
+            hls = new Hls({ capLevelToPlayerSize: false, abrEwmaDefaultEstimate: 1e7 });
             hls.loadSource(cdn(it.guid, "playlist.m3u8"));
             hls.attachMedia(lbVideo);
           } else lbVideo.src = cdn(it.guid, "play_720p.mp4");
         } catch (e) { lbVideo.src = cdn(it.guid, "play_720p.mp4"); }
       }
-      lbVideo.play().catch(() => {});
+      // Sem um clique antes (ex.: quem chega pelo link), o navegador pode barrar o play com som: mostra o botão grande
+      lbVideo.play().catch(() => { if (list[pos] === it) lbPlay.hidden = false; });
     }
     function openLb(card) {
       const it = items[card.dataset.idx];
+      openItem(it, card.closest("[data-row]").dataset.row, card);
+    }
+    function openItem(it, cat, from) {
       stopPreview();
       reel && reel.pause();
-      list = byCat[it.cat];
-      lastFocus = card;
+      listCat = cat && byCat[cat] ? cat : catsOf(it).find((c) => byCat[c] && byCat[c].includes(it)) || null;
+      list = listCat ? byCat[listCat] : [it]; // oculto ("não listado"): abre só ele
+      lastFocus = from || null;
       lb.hidden = false;
       document.body.classList.add("is-locked");
       requestAnimationFrame(() => lb.classList.add("is-open"));
@@ -309,7 +326,25 @@
         lbYt.innerHTML = "";
       }, 300);
       if (lastFocus) lastFocus.focus({ preventScroll: true });
+      if (canRoute && location.pathname.startsWith("/v/")) history.replaceState(null, "", "/#portfolio");
       reel && reel.resume();
+    }
+    lbPlay.addEventListener("click", () => { lbPlay.hidden = true; lbVideo.play().catch(() => {}); });
+    lbVideo.addEventListener("play", () => (lbPlay.hidden = true));
+    lbShare.addEventListener("click", async () => {
+      const it = list[pos];
+      const url = `${SHARE_ORIGIN}/v/${encodeURIComponent(it.id)}`;
+      const title = it.title || `${catLabel[listCat || catsOf(it)[0]] || "Portfólio"} · Arthur Franze`;
+      if (navigator.share && matchMedia("(pointer: coarse)").matches) { navigator.share({ title, url }).catch(() => {}); return; }
+      try { await navigator.clipboard.writeText(url); lbShare.textContent = "Link copiado ✓"; }
+      catch (e) { prompt("Copie o link do vídeo:", url); }
+    });
+
+    // Link próprio do vídeo (/v/<id>): já abre ele tocando
+    if (openId) {
+      const it = C.videos.find((v) => v.id === openId && !v.pending && !v.error && (v.guid || v.yt));
+      if (it) openItem(it, null, null);
+      else if (canRoute && location.pathname.startsWith("/v/")) history.replaceState(null, "", "/");
     }
 
     rowsEl.addEventListener("click", (e) => {
